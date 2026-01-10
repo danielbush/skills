@@ -96,22 +96,33 @@ Low-level infrastructure wrappers use "Embedded Stubs" - they stub third-party l
 
 ```javascript
 class HttpClient {
-  static create(baseUrl) {
-    return new HttpClient(baseUrl, fetch); // Real fetch
+  static create() {
+    return new HttpClient(realHttp); // Real HTTP library (e.g., Node.js http module)
   }
 
   static createNull() {
-    return new HttpClient('http://null', stubbedFetch); // Stubbed fetch
+    return new HttpClient(new StubbedHttp()); // Stubbed HTTP library
   }
 
-  constructor(baseUrl, fetchFn) {
-    this._baseUrl = baseUrl;
-    this._fetch = fetchFn;
+  constructor(http) {
+    this._http = http;
   }
 
-  async get(path) {
-    const response = await this._fetch(`${this._baseUrl}${path}`);
-    return response.json();
+  async request(options) {
+    const response = await this._http.request(options);
+    return response.body;
+  }
+}
+
+// StubbedHttp - embedded stub that mimics the third-party HTTP library
+class StubbedHttp {
+  async request(options) {
+    // Returns a canned response with default values
+    return {
+      status: 200,
+      headers: {},
+      body: {}
+    };
   }
 }
 ```
@@ -182,29 +193,60 @@ describe('HttpClient (Integration)', () => {
 
 ### Configurable Responses
 
-Nullable infrastructure supports configurable responses for testing different scenarios:
+Configure responses from the **dependency's externally-visible behavior**, not its implementation. Use named, optional parameters so tests only configure what they care about.
 
 ```javascript
-class HttpClient {
-  static createNull() {
-    return new HttpClient('http://null', stubbedFetch, new ResponseConfig());
+class LoginClient {
+  static create(config) {
+    const httpClient = HttpClient.create(config.authUrl);
+    return new LoginClient(httpClient);
   }
 
-  constructor(baseUrl, fetchFn, responseConfig) {
-    this._baseUrl = baseUrl;
-    this._fetch = fetchFn;
-    this._responses = responseConfig;
+  static createNull({
+    email = "user@example.com",
+    emailVerified = true,
+    userId = "test-user-id",
+    loginSucceeds = true,
+  } = {}) {
+    // Configuration focuses on behavior (login success, user data)
+    // NOT on implementation (HTTP status codes, JSON structure)
+    return new LoginClient(
+      HttpClient.createNull(),
+      { email, emailVerified, userId, loginSucceeds }
+    );
   }
 
-  stubResponse(path, data) {
-    this._responses.set(path, data);
+  constructor(httpClient, config = {}) {
+    this._httpClient = httpClient;
+    this._config = config;
   }
 
-  stubError(path, error) {
-    this._responses.setError(path, error);
+  async login(credentials) {
+    if (this._config.loginSucceeds === false) {
+      throw new Error("Login failed");
+    }
+    
+    // In production, this would call httpClient and parse response
+    // In tests, it returns configured behavior
+    return {
+      email: this._config.email,
+      emailVerified: this._config.emailVerified,
+      userId: this._config.userId,
+    };
   }
 }
+
+// In tests - configure only what matters for this scenario
+const client = LoginClient.createNull({ emailVerified: false });
+// Other parameters use sensible defaults
 ```
+
+**Key principles:**
+- Define responses at the behavior level (user data, success/failure)
+- NOT at the implementation level (HTTP status codes, JSON structure)
+- Use named, optional parameters with sensible defaults
+- Tests configure only what they care about
+- Support both single values and arrays for sequential responses
 
 ### Output Tracking
 
