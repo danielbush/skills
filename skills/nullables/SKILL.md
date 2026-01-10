@@ -94,13 +94,13 @@ class ServiceClass {
 
 4. **Write tests**:
    - Use `.createNull()` for unit tests
-   - Configure responses: `infrastructure.stubResponse()`
-   - Track outputs: `infrastructure.getTrackedOutput()`
+   - Configure responses via factory: `Service.createNull({ response: data })`
+   - Track outputs: `service.trackOutput()`
    - Verify state and return values
 
 5. **Add integration tests (sparingly)**:
-   - Use `.create()` for a few smoke tests
-   - Verify infrastructure wrappers work with real systems
+   - Use `.create()` for a few narrow integration tests
+   - Verify infrastructure wrappers correctly mimic third-party behavior
 
 ### Refactoring Existing Code
 
@@ -128,21 +128,31 @@ class ServiceClass {
 
 ### Pattern: Infrastructure Wrapper
 
-Wrap third-party code, not application code:
+Wrap third-party code, not application code. Use an embedded stub that mimics the third-party library:
 
 ```javascript
 class HttpClient {
-  static create(baseUrl) {
-    return new HttpClient(baseUrl, realFetch);
+  static create() {
+    return new HttpClient(realHttp); // Real HTTP library
   }
 
   static createNull() {
-    return new HttpClient('http://null', stubbedFetch);
+    return new HttpClient(new StubbedHttp()); // Embedded stub
   }
 
-  constructor(baseUrl, fetchFn) {
-    this._baseUrl = baseUrl;
-    this._fetch = fetchFn; // Inject the fetch implementation
+  constructor(http) {
+    this._http = http;
+  }
+
+  async request(options) {
+    return await this._http.request(options);
+  }
+}
+
+// Embedded stub - mimics third-party library interface
+class StubbedHttp {
+  async request(options) {
+    return { status: 200, body: {} };
   }
 }
 ```

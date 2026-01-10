@@ -81,16 +81,28 @@ class ApiClient {
 - Always use `.createNull()` for test instances
 - Never call constructors directly from outside the class
 
-**2. Minimal Arguments with Reasonable Defaults**
-- `.create()` should accept minimal arguments and provide reasonable production-ready defaults
-- `.createNull()` should work with no arguments or minimal configuration
+**2. Zero-Impact Instantiation**
+- Constructors should do no significant work
+- Don't connect to external systems, start services, or perform long calculations in constructors
+- Use separate methods like `connect()` or `start()` for initialization that has side effects
+- This ensures instantiating dependency chains remains fast and predictable
 
-**3. Dependency Injection Through Factories**
+**3. Parameterless Instantiation**
+- `.create()` and `.createNull()` should work with no arguments (or optional arguments only)
+- Provide sensible production defaults so callers don't need to specify everything
+- For value objects, consider `createTestInstance()` with optional, named parameters
+
+**4. Signature Shielding**
+- Hide constructor complexity behind factory methods
+- Tests call factory methods, not constructors directly
+- When signatures change, only factory methods need updating (not all test call sites)
+
+**5. Dependency Injection Through Factories**
 - `.create()` calls `.create()` on dependencies
 - `.createNull()` calls `.createNull()` on dependencies
 - Dependencies are passed to the constructor
 
-**4. Infrastructure Wrapper Pattern**
+**6. Infrastructure Wrapper Pattern**
 
 Low-level infrastructure wrappers use "Embedded Stubs" - they stub third-party libraries, not application code:
 
@@ -141,13 +153,9 @@ class StubbedHttp {
 ```javascript
 describe('ApiClient', () => {
   it('fetches user data', async () => {
-    // Use createNull for fast, reliable tests
-    const client = ApiClient.createNull();
-
-    // Configure the response
-    client.httpClient.stubResponse('/users/123', {
-      id: 123,
-      name: 'Alice'
+    // Configure response via createNull - behavior-focused, not implementation
+    const client = ApiClient.createNull({
+      users: [{ id: 123, name: 'Alice' }]
     });
 
     // Test the behavior
@@ -156,40 +164,69 @@ describe('ApiClient', () => {
     // Verify state/output
     expect(user.name).toBe('Alice');
   });
-});
-```
 
-**Characteristics:**
-- Use `.createNull()` instances exclusively
-- Configure responses using nullable infrastructure
-- Verify outputs and state changes
-- Fast execution (no real external calls)
-- Sociable (hit real logic and nullable infrastructure)
+  it('handles missing user', async () => {
+    // Configure only what this test cares about
+    const client = ApiClient.createNull({
+      users: []  // No users configured
+    });
 
-### Integration Tests
+    const user = await client.fetchUser(999);
 
-A **small number** of narrow integration tests verify live infrastructure:
-
-```javascript
-describe('HttpClient (Integration)', () => {
-  it('makes real HTTP requests', async () => {
-    // Use .create() for live tests
-    const client = HttpClient.create('https://api.example.com');
-
-    // Hit real API
-    const response = await client.get('/health');
-
-    // Verify it works
-    expect(response.status).toBe('ok');
+    expect(user).toBeNull();
   });
 });
 ```
 
 **Characteristics:**
+- Use `.createNull()` instances exclusively
+- Configure responses via factory parameters (behavior-focused)
+- Verify outputs and state changes
+- Fast execution (no real external calls)
+- Sociable (hit real logic and nullable infrastructure)
+
+### Narrow Integration Tests
+
+Narrow integration tests verify that infrastructure wrappers correctly communicate with real external systems. They document actual system behavior and ensure embedded stubs accurately mimic it.
+
+```javascript
+describe('HttpClient (Narrow Integration)', () => {
+  it('makes real HTTP requests', async () => {
+    // Use .create() for live tests
+    const client = HttpClient.create();
+
+    // Hit real API
+    const response = await client.request({
+      method: 'GET',
+      url: 'https://api.example.com/health'
+    });
+
+    // Verify it works
+    expect(response.status).toBe(200);
+  });
+
+  it('handles network errors', async () => {
+    const client = HttpClient.create();
+
+    // Verify error handling matches what stub will simulate
+    await expect(
+      client.request({ url: 'https://invalid.localhost' })
+    ).rejects.toThrow();
+  });
+});
+```
+
+**Purpose:**
+- Verify infrastructure wrappers communicate correctly with external systems
+- Document actual system behavior for creating accurate embedded stubs
+- Catch incompatibilities between test and production environments
+
+**Characteristics:**
 - Use `.create()` instances to test live infrastructure
-- Small number of tests (smoke tests)
-- Verify infrastructure wrappers work with real systems
+- Run against isolated test systems (not shared environments)
+- Small number of tests - just enough to verify wrapper behavior
 - May be slower, may require test environment setup
+- Keep them narrow (focused on specific infrastructure behavior)
 
 ### Configurable Responses
 
@@ -246,7 +283,30 @@ const client = LoginClient.createNull({ emailVerified: false });
 - NOT at the implementation level (HTTP status codes, JSON structure)
 - Use named, optional parameters with sensible defaults
 - Tests configure only what they care about
-- Support both single values and arrays for sequential responses
+
+**Sequential responses:**
+
+For scenarios requiring multiple different responses, support both single values (repeating) and arrays (sequential):
+
+```javascript
+class DieRoller {
+  static createNull({ roll = 6 } = {}) {
+    // Supports single value (always returns same) or array (sequential)
+    const rolls = Array.isArray(roll) ? roll : [roll];
+    return new DieRoller(new StubbedRandom(rolls));
+  }
+  // ...
+}
+
+// Single value - always returns 6
+const roller = DieRoller.createNull({ roll: 6 });
+
+// Sequential values - returns each in order, then throws if exhausted
+const sequentialRoller = DieRoller.createNull({ roll: [1, 2, 3, 4, 5] });
+sequentialRoller.roll(); // 1
+sequentialRoller.roll(); // 2
+// ...
+```
 
 ### Output Tracking
 
@@ -292,6 +352,64 @@ expect(sent[0].to).toBe('user@example.com');
 - Returns an `OutputTracker` instance (not raw data)
 - Emits events representing the behavior that occurred
 - Works with both real and null instances
+
+### Behavior Simulation
+
+For infrastructure that receives events from external systems (WebSockets, message queues, etc.), add `simulate[Event]()` methods to trigger those events in tests:
+
+```javascript
+const MESSAGE_EVENT = "message-received";
+
+class WebSocketServer {
+  static create(port) {
+    return new WebSocketServer(new RealWebSocket(port), new EventEmitter());
+  }
+
+  static createNull() {
+    return new WebSocketServer(new StubbedWebSocket(), new EventEmitter());
+  }
+
+  constructor(socket, emitter) {
+    this._socket = socket;
+    this._emitter = emitter;
+
+    // Real path: socket events trigger shared handler
+    this._socket.on("message", (clientId, data) => {
+      this.#handleMessage(clientId, data);
+    });
+  }
+
+  // Shared handler used by both real and simulated paths
+  #handleMessage(clientId, message) {
+    this._emitter.emit(MESSAGE_EVENT, { clientId, message });
+  }
+
+  // Simulate receiving a message (for tests)
+  simulateMessage(clientId, message) {
+    this.#handleMessage(clientId, message);
+  }
+
+  // Track messages for test verification
+  trackMessages() {
+    return OutputTracker.create(this._emitter, MESSAGE_EVENT);
+  }
+}
+
+// In tests
+const server = WebSocketServer.createNull();
+const tracker = server.trackMessages();
+
+// Simulate an incoming message
+server.simulateMessage("client-1", { type: "greeting", text: "Hello" });
+
+expect(tracker.data[0].message.text).toBe("Hello");
+```
+
+**Key principles:**
+- Use `simulate[Event]()` naming convention
+- Share code between real and simulated paths (via private handler methods)
+- Simulation invokes the same handler as real events
+- Combine with output tracking to verify behavior
 
 ## Event Emitters for State-Based Tests
 
@@ -439,18 +557,29 @@ class NotificationService {
 
 When implementing Nullables and A-Frame:
 
+**Architecture:**
 - [ ] Separate code into Logic, Infrastructure, and Application layers
 - [ ] Logic layer has no external dependencies
 - [ ] All infrastructure wrappers wrap third-party code, not application code
+
+**Factory Methods:**
 - [ ] Every class has a static `.create()` method
 - [ ] Every application and infrastructure class has a static `.createNull()` method
-- [ ] `.create()` methods accept minimal arguments with reasonable defaults
+- [ ] `.create()` and `.createNull()` work with no arguments (parameterless instantiation)
 - [ ] `.create()` calls `.create()` on dependencies
 - [ ] `.createNull()` calls `.createNull()` on dependencies
 - [ ] Dependencies are passed to constructors
+
+**Instantiation:**
+- [ ] Constructors do no significant work (zero-impact instantiation)
+- [ ] External connections use separate `connect()` or `start()` methods
+- [ ] Constructor complexity hidden behind factory methods (signature shielding)
+
+**Testing:**
 - [ ] Unit tests use `.createNull()` instances exclusively
-- [ ] Integration tests (few in number) use `.create()` instances
+- [ ] Narrow integration tests (few) use `.create()` to verify infrastructure wrappers
 - [ ] Tests are narrow, sociable, and state-based
-- [ ] No mocks - use configurable responses on nullable infrastructure
+- [ ] Configurable responses defined at behavior level, not implementation level
+- [ ] Use `track[OutputType]()` for output tracking
+- [ ] Use `simulate[Event]()` for behavior simulation
 - [ ] Event emitters expose state changes for testing
-- [ ] Output tracking captures what would be sent externally
