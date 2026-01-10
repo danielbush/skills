@@ -208,34 +208,48 @@ class HttpClient {
 
 ### Output Tracking
 
-Track what infrastructure would send externally:
+Track what infrastructure would send externally using the `track[OutputType]()` pattern. Output tracking records **behavior** (what was written), not function calls.
 
 ```javascript
+const OUTPUT_EVENT = "email-sent";
+
 class EmailService {
   static createNull() {
-    return new EmailService(new InMemoryEmailTracker());
+    return new EmailService(new EventEmitter(), new NullMailer());
   }
 
-  constructor(tracker) {
-    this._tracker = tracker;
+  constructor(emitter, mailer) {
+    this._emitter = emitter;
+    this._mailer = mailer;
+  }
+
+  // Returns an OutputTracker that listens for email events
+  trackSentEmails() {
+    return OutputTracker.create(this._emitter, OUTPUT_EVENT);
   }
 
   async sendEmail(to, subject, body) {
-    this._tracker.record({ to, subject, body });
-  }
-
-  getSentEmails() {
-    return this._tracker.getAll();
+    await this._mailer.send(to, subject, body);
+    // Emit the behavior that occurred
+    this._emitter.emit(OUTPUT_EVENT, { to, subject, body });
   }
 }
 
 // In tests
 const emailService = EmailService.createNull();
+const tracker = emailService.trackSentEmails();
+
 await emailService.sendEmail('user@example.com', 'Hello', 'World');
 
-const sent = emailService.getSentEmails();
+const sent = tracker.data;
 expect(sent[0].to).toBe('user@example.com');
 ```
+
+**Key principles:**
+- Use `track[OutputType]()` naming convention
+- Returns an `OutputTracker` instance (not raw data)
+- Emits events representing the behavior that occurred
+- Works with both real and null instances
 
 ## Event Emitters for State-Based Tests
 
