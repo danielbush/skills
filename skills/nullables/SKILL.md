@@ -20,6 +20,7 @@ Apply this pattern when:
 
 - Building new applications or services with testability as a priority
 - Refactoring existing code to eliminate mocks and improve test reliability
+- Writing tests for code that uses nullable patterns such as classes that use static factory method `.create`.
 - Creating infrastructure code that needs both production and test modes
 - Designing systems where fast, reliable tests are critical
 - Implementing dependency injection without heavy frameworks
