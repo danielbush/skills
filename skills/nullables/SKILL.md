@@ -63,8 +63,8 @@ class ServiceClass {
 
 - **Unit tests**: Use `.createNull()` - fast, sociable, no external calls
 - **Integration tests**: Use `.create()` sparingly - verify live infrastructure
-- Configure responses instead of mocking: `service.stubResponse(data)`
-- Track outputs: `service.getSentEmails()`
+- Configure responses via factory: `Service.createNull({ response: data })`
+- Track outputs: `service.trackSentEmails()`
 - Verify state and outputs, not interaction patterns
 
 ### 4. Value Objects
