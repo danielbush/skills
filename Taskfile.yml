@@ -1,0 +1,47 @@
+version: "3"
+
+vars:
+  SKILL_DIR: skills/nullables
+  INSTALL_DIR: ~/.claude/skills
+
+tasks:
+  install:
+    desc: Install the nullables skill to ~/.claude/skills
+    cmds:
+      - mkdir -p {{.INSTALL_DIR}}
+      - cp -r {{.SKILL_DIR}} {{.INSTALL_DIR}}/nullables
+      - echo "Installed nullables skill to {{.INSTALL_DIR}}/nullables"
+
+  install-dev:
+    desc: Symlink the skill for development (changes reflect immediately)
+    cmds:
+      - mkdir -p {{.INSTALL_DIR}}
+      - rm -rf {{.INSTALL_DIR}}/nullables
+      - ln -s "$(pwd)/{{.SKILL_DIR}}" {{.INSTALL_DIR}}/nullables
+      - echo "Symlinked {{.INSTALL_DIR}}/nullables -> $(pwd)/{{.SKILL_DIR}}"
+
+  uninstall:
+    desc: Remove the skill from ~/.claude/skills
+    cmds:
+      - rm -rf {{.INSTALL_DIR}}/nullables
+      - echo "Removed nullables skill"
+
+  list:
+    desc: List all files in the skill
+    cmds:
+      - echo "Files in nullables skill:"
+      - find {{.SKILL_DIR}} -type f | sort
+
+  validate:
+    desc: Validate the skill structure
+    cmds:
+      - |
+        if [ ! -f "{{.SKILL_DIR}}/SKILL.md" ]; then
+          echo "Error: SKILL.md not found"
+          exit 1
+        fi
+        if ! head -1 "{{.SKILL_DIR}}/SKILL.md" | grep -q "^---$"; then
+          echo "Error: SKILL.md must start with YAML frontmatter (---)"
+          exit 1
+        fi
+        echo "Skill structure is valid"
