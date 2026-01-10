@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Skill(skill-creator)",
+      "WebFetch(domain:www.jamesshore.com)",
+      "Bash(uv run:*)"
+    ]
+  }
+}
