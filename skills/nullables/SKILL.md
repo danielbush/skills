@@ -187,7 +187,7 @@ class Account extends EventEmitter {
 }
 
 // Test by observing events
-account.on('balance-changed', event => events.push(event));
+account.on('balance-changed', (event) => events.push(event));
 ```
 
 ## Detailed Reference

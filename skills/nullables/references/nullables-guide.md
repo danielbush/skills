@@ -13,11 +13,13 @@ A-Frame separates code into three distinct layers:
 Pure, algorithmic code with no external dependencies. Contains business rules, calculations, and data transformations.
 
 **Characteristics:**
+
 - No network calls, file I/O, or external system interactions
 - Fast, deterministic, purely in-memory operations
 - Can be tested directly without any special setup
 
 **Value Objects:**
+
 - Immutable by default - once created, state doesn't change
 - Mutable value objects are acceptable - can be instantiated with `.create()` and modified with methods, but methods only perform algorithmic in-memory operations
 - Operations requiring network/infrastructure should be handled by infrastructure code that takes/returns value objects
@@ -27,6 +29,7 @@ Pure, algorithmic code with no external dependencies. Contains business rules, c
 Code that directly interfaces with the outside world (network, filesystem, databases, external APIs).
 
 **Two types:**
+
 - **Infrastructure Wrappers**: Low-level code that directly interfaces with external systems (HTTP clients, database connectors, filesystem operations)
 - **High-level Infrastructure**: Code that depends on infrastructure wrappers (API clients, repositories, service clients)
 
@@ -37,6 +40,7 @@ Code that directly interfaces with the outside world (network, filesystem, datab
 High-level orchestration code that coordinates infrastructure and logic layers.
 
 **Characteristics:**
+
 - Orchestrates infrastructure calls and logic operations
 - Implements business workflows
 - Uses "Logic Sandwiches" pattern: read from infrastructure → process with logic → write to infrastructure
@@ -77,27 +81,32 @@ class ApiClient {
 ### Key Principles
 
 **1. Static Factory Methods Over Constructors**
+
 - Always use `.create()` for production instances
 - Always use `.createNull()` for test instances
 - Never call constructors directly from outside the class
 
 **2. Zero-Impact Instantiation**
+
 - Constructors should do no significant work
 - Don't connect to external systems, start services, or perform long calculations in constructors
 - Use separate methods like `connect()` or `start()` for initialization that has side effects
 - This ensures instantiating dependency chains remains fast and predictable
 
 **3. Parameterless Instantiation**
+
 - `.create()` and `.createNull()` should work with no arguments (or optional arguments only)
 - Provide sensible production defaults so callers don't need to specify everything
 - For value objects, consider `createTestInstance()` with optional, named parameters
 
 **4. Signature Shielding**
+
 - Hide constructor complexity behind factory methods
 - Tests call factory methods, not constructors directly
 - When signatures change, only factory methods need updating (not all test call sites)
 
 **5. Dependency Injection Through Factories**
+
 - `.create()` calls `.create()` on dependencies
 - `.createNull()` calls `.createNull()` on dependencies
 - Dependencies are passed to the constructor
@@ -144,6 +153,7 @@ class StubbedHttp {
 ### Test Philosophy
 
 **Narrow, Sociable, State-Based Tests:**
+
 - **Narrow**: Each test focuses on a specific function or behavior
 - **Sociable**: Tests use real dependencies (via `.createNull()`), not mocks
 - **State-Based**: Tests verify outputs and observable state, not interaction patterns
@@ -168,7 +178,7 @@ describe('ApiClient', () => {
   it('handles missing user', async () => {
     // Configure only what this test cares about
     const client = ApiClient.createNull({
-      users: []  // No users configured
+      users: [] // No users configured
     });
 
     const user = await client.fetchUser(999);
@@ -179,6 +189,7 @@ describe('ApiClient', () => {
 ```
 
 **Characteristics:**
+
 - Use `.createNull()` instances exclusively
 - Configure responses via factory parameters (behavior-focused)
 - Verify outputs and state changes
@@ -209,19 +220,19 @@ describe('HttpClient (Narrow Integration)', () => {
     const client = HttpClient.create();
 
     // Verify error handling matches what stub will simulate
-    await expect(
-      client.request({ url: 'https://invalid.localhost' })
-    ).rejects.toThrow();
+    await expect(client.request({ url: 'https://invalid.localhost' })).rejects.toThrow();
   });
 });
 ```
 
 **Purpose:**
+
 - Verify infrastructure wrappers communicate correctly with external systems
 - Document actual system behavior for creating accurate embedded stubs
 - Catch incompatibilities between test and production environments
 
 **Characteristics:**
+
 - Use `.create()` instances to test live infrastructure
 - Run against isolated test systems (not shared environments)
 - Small number of tests - just enough to verify wrapper behavior
@@ -240,17 +251,19 @@ class LoginClient {
   }
 
   static createNull({
-    email = "user@example.com",
+    email = 'user@example.com',
     emailVerified = true,
-    userId = "test-user-id",
-    loginSucceeds = true,
+    userId = 'test-user-id',
+    loginSucceeds = true
   } = {}) {
     // Configuration focuses on behavior (login success, user data)
     // NOT on implementation (HTTP status codes, JSON structure)
-    return new LoginClient(
-      HttpClient.createNull(),
-      { email, emailVerified, userId, loginSucceeds }
-    );
+    return new LoginClient(HttpClient.createNull(), {
+      email,
+      emailVerified,
+      userId,
+      loginSucceeds
+    });
   }
 
   constructor(httpClient, config = {}) {
@@ -260,15 +273,15 @@ class LoginClient {
 
   async login(credentials) {
     if (this._config.loginSucceeds === false) {
-      throw new Error("Login failed");
+      throw new Error('Login failed');
     }
-    
+
     // In production, this would call httpClient and parse response
     // In tests, it returns configured behavior
     return {
       email: this._config.email,
       emailVerified: this._config.emailVerified,
-      userId: this._config.userId,
+      userId: this._config.userId
     };
   }
 }
@@ -279,6 +292,7 @@ const client = LoginClient.createNull({ emailVerified: false });
 ```
 
 **Key principles:**
+
 - Define responses at the behavior level (user data, success/failure)
 - NOT at the implementation level (HTTP status codes, JSON structure)
 - Use named, optional parameters with sensible defaults
@@ -313,7 +327,7 @@ sequentialRoller.roll(); // 2
 Track what infrastructure would send externally using the `track[OutputType]()` pattern. Output tracking records **behavior** (what was written), not function calls.
 
 ```javascript
-const OUTPUT_EVENT = "email-sent";
+const OUTPUT_EVENT = 'email-sent';
 
 class EmailService {
   static createNull() {
@@ -348,6 +362,7 @@ expect(sent[0].to).toBe('user@example.com');
 ```
 
 **Key principles:**
+
 - Use `track[OutputType]()` naming convention
 - Returns an `OutputTracker` instance (not raw data)
 - Emits events representing the behavior that occurred
@@ -358,7 +373,7 @@ expect(sent[0].to).toBe('user@example.com');
 For infrastructure that receives events from external systems (WebSockets, message queues, etc.), add `simulate[Event]()` methods to trigger those events in tests:
 
 ```javascript
-const MESSAGE_EVENT = "message-received";
+const MESSAGE_EVENT = 'message-received';
 
 class WebSocketServer {
   static create(port) {
@@ -374,7 +389,7 @@ class WebSocketServer {
     this._emitter = emitter;
 
     // Real path: socket events trigger shared handler
-    this._socket.on("message", (clientId, data) => {
+    this._socket.on('message', (clientId, data) => {
       this.#handleMessage(clientId, data);
     });
   }
@@ -400,12 +415,13 @@ const server = WebSocketServer.createNull();
 const tracker = server.trackMessages();
 
 // Simulate an incoming message
-server.simulateMessage("client-1", { type: "greeting", text: "Hello" });
+server.simulateMessage('client-1', { type: 'greeting', text: 'Hello' });
 
-expect(tracker.data[0].message.text).toBe("Hello");
+expect(tracker.data[0].message.text).toBe('Hello');
 ```
 
 **Key principles:**
+
 - Use `simulate[Event]()` naming convention
 - Share code between real and simulated paths (via private handler methods)
 - Simulation invokes the same handler as real events
@@ -558,11 +574,13 @@ class NotificationService {
 When implementing Nullables and A-Frame:
 
 **Architecture:**
+
 - [ ] Separate code into Logic, Infrastructure, and Application layers
 - [ ] Logic layer has no external dependencies
 - [ ] All infrastructure wrappers wrap third-party code, not application code
 
 **Factory Methods:**
+
 - [ ] Every class has a static `.create()` method
 - [ ] Every application and infrastructure class has a static `.createNull()` method
 - [ ] `.create()` and `.createNull()` work with no arguments (parameterless instantiation)
@@ -571,11 +589,13 @@ When implementing Nullables and A-Frame:
 - [ ] Dependencies are passed to constructors
 
 **Instantiation:**
+
 - [ ] Constructors do no significant work (zero-impact instantiation)
 - [ ] External connections use separate `connect()` or `start()` methods
 - [ ] Constructor complexity hidden behind factory methods (signature shielding)
 
 **Testing:**
+
 - [ ] Unit tests use `.createNull()` instances exclusively
 - [ ] Narrow integration tests (few) use `.create()` to verify infrastructure wrappers
 - [ ] Tests are narrow, sociable, and state-based
