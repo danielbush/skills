@@ -41,7 +41,7 @@ Skills are installed as directories in `~/.claude/skills/`. The skill directory 
 task install
 
 # Or symlink for development (changes reflect immediately)
-task install-dev
+task install:dev
 
 # Remove the skill
 task uninstall
@@ -144,5 +144,5 @@ The nullables pattern enables:
 To improve this skill:
 
 1. Edit files in `skills/nullables/`
-2. Test with `task install-dev` to symlink to `~/.claude/skills/`
+2. Test with `task install:dev` to symlink to `~/.claude/skills/`
 3. Submit improvements
