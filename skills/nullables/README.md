@@ -137,7 +137,7 @@ The nullables pattern enables:
 
 ## Learn More
 
-- [Testing Without Mocks - James Shore](https://www.jamesshore.com/v2/projects/testing-without-mocks)
+- [Testing Without Mocks - James Shore](https://www.jamesshore.com/v2/projects/nullables/testing-without-mocks)
 
 ## Contributing
 
