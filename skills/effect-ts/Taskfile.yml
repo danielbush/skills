@@ -1,0 +1,15 @@
+version: "3"
+
+tasks:
+  package:
+    desc: Package the effect-ts skill into a .skill file
+    dir: "{{.USER_WORKING_DIR}}"
+    cmds:
+      - python3 ~/.claude/skills/skill-creator/scripts/package_skill.py .
+
+  package:dist:
+    desc: Package the skill and output to dist/ directory
+    dir: "{{.USER_WORKING_DIR}}"
+    cmds:
+      - mkdir -p dist
+      - python3 ~/.claude/skills/skill-creator/scripts/package_skill.py . ./dist
