@@ -72,7 +72,7 @@ class ServiceClass {
 - Mutable value objects allowed - use methods for in-memory transformations only
 - Infrastructure operations (network, I/O) should take/return value objects, not be methods on them
 
-## Basic Workflow
+## Nullable algorithm for writing and testing code
 
 Suppose `Foo` is the class under test.  We will use names like `Foo`, `foo`, `Bar`, `Client` etc for the purposes of describing this algorithm, but more descriptive names should be used in the code.
 
@@ -94,7 +94,7 @@ The use of static methods `Foo.create` and `Foo.createNull` for classes in the c
   - it may not make sense to set defaults for all parameters when creating value objects;  so `Val.create` may end up requiring the consumer to specify many or all parameters and should be typed accordingly
   - use a static `Val.createTestInstance` to create test values; this is to indicate that the value create is a test value; it's fine for `.createTestInstance` to set defaults to make tests less verbose
 
-The following is an algorithm for refactoring and creating new code.  It doesn't need to be followed precisely, it is meant to convery the end result.
+The following is the algorithm for refactoring and creating new code.  It doesn't need to be followed precisely, it is meant to convery the end result.
 
 - Find the code (eg a class `Foo`) that you think is the most important to write or test
   - we want to be able to test `Foo` using narrow, sociable unit tests without mocks...
@@ -146,6 +146,8 @@ The following is an algorithm for refactoring and creating new code.  It doesn't
   - `tracker.clear()` should clear the previously logged data
   - `tracker.data` should be a getter to access the data
   - in some cases, tracking may be useful to the application, in which this event emitter should be exposed publicly; we can still implement a `Tracker` using the above so tests can track the outcomes
+
+End of algorithm.
 
 ### Implementing a New Feature
 
