@@ -1,3 +1,4 @@
 [tools]
 task = "latest"
 uv = "latest"
+bun = "latest"
