@@ -362,18 +362,60 @@ const user = Schema.decodeUnknownSync(User)({
 
 ## Reference Documentation
 
-For detailed examples and API documentation, search `references/effect-docs.txt`:
+Detailed examples and API documentation are split into focused files under `references/`.
+Use `grep "^### "` on the relevant file to list all section headings and their line numbers,
+then `read_file` with `start_line`/`end_line` to fetch a complete section.
 
-| Topic | Search Pattern |
-|-------|---------------|
-| Layers & DI | `Layer` |
-| File operations | `FileSystem` |
-| HTTP client | `HttpClient` |
-| AI integration | `@effect/ai` |
-| OpenTelemetry | `OpenTelemetry` |
-| Streams | `Stream.make` |
-| PubSub | `PubSub` |
-| Scheduling | `Schedule` |
-| Metrics | `Metric` |
-| Terminal | `Terminal` |
-| Commands | `Command.make` |
+### Core
+
+| Topic | File |
+|-------|------|
+| Effect creation, generators, pipe, `Ref`, timeouts, concurrency | `references/core/effects.md` |
+| Error handling (`catchAll`, `catchTag`, `Cause`, `Either`) | `references/core/error-handling.md` |
+| Layers, services, `Context.Tag`, `Effect.Service`, DI | `references/core/dependency-injection.md` |
+| `Config`, `ConfigProvider`, environment variables | `references/core/configuration.md` |
+| `Scope`, finalizers, `acquireUseRelease`, `Effect.scoped` | `references/core/resource-management.md` |
+
+### Concurrency
+
+| Topic | File |
+|-------|------|
+| Fibers, forking, racing, `Deferred`, `Latch`, `Supervisor` | `references/concurrency/fibers.md` |
+| `Queue`, `PubSub`, `SubscriptionRef`, `Semaphore` | `references/concurrency/queues-pubsub.md` |
+| `Stream` creation, transformation, sinks | `references/concurrency/streams.md` |
+| `Schedule`, retry, repeat, cron, jitter | `references/concurrency/scheduling.md` |
+
+### Platform (`@effect/platform`)
+
+| Topic | File |
+|-------|------|
+| `FileSystem`, `Path` | `references/platform/filesystem.md` |
+| `HttpClient`, HTTP server, `RequestResolver` | `references/platform/http.md` |
+| `Command` execution, stdin/stdout, exit codes | `references/platform/command.md` |
+| `KeyValueStore` | `references/platform/keyvaluestore.md` |
+
+### Observability
+
+| Topic | File |
+|-------|------|
+| Log levels, structured loggers, spans, annotations | `references/observability/logging.md` |
+| Counters, gauges, frequency, summaries | `references/observability/metrics.md` |
+| OpenTelemetry, spans, OTLP export, tracing | `references/observability/tracing.md` |
+
+### Schema, AI & Data
+
+| Topic | File |
+|-------|------|
+| Validation, encoding, branded types, JSON Schema, arbitrary | `references/schema.md` |
+| OpenAI, Anthropic, `LanguageModel`, `@effect/ai` | `references/ai.md` |
+| `HashSet`, `HashMap`, `Chunk`, `Order`, `Data`, `BigDecimal` | `references/data/collections.md` |
+| `DateTime`, `Duration`, `Clock`, `Cron` | `references/data/datetime.md` |
+
+### Other
+
+| Topic | File |
+|-------|------|
+| Installation, scaffolding, tooling, running programs | `references/getting-started.md` |
+| `Cache`, TTL, `Layer.memoize` | `references/caching.md` |
+| Mocking services, config, file system; test DI | `references/testing.md` |
+| `Micro` lightweight runtime | `references/micro.md` |
