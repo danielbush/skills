@@ -20,6 +20,8 @@ To add to a project:
 bunx skills add danielbush/skills --agent claude-code --skill nullables
 ```
 
+To update, just re-run the above.
+
 To validate:
 
 ```sh
