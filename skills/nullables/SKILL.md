@@ -106,9 +106,10 @@ The following is the algorithm for refactoring and creating new code.  It doesn'
   - suppose `Bar` represents any another class that an instance of `Foo` needs to perform its actions
   - we have 2 scenarios
   - (1) instantiate `Bar` straight away: ensure `Foo.create` calls `Bar.create` and passes the instance to `Foo`s constructor
-  - (2) delayed instantiation of `Bar`: we pass in a factory `createBar` that returns an instance of `Bar` and let the instance of `Foo` create `Bar` at a later time; we might do this if `Bar` is only created based on some condition/event at a later.
-    - if we are passing multiple infrastructure dependencies we can use a "create" object that we pass in to the constructor: `{ Bar: Bar.create, Baz: ... }` or `{ Bar: (...) => Bar.create(...), Baz: ... }`; `foo` can then call `create.Bar(...)` to get a `Bar` instance at a later time
+  - (2) delayed instantiation of `Bar`: we pass in a factory `createBar` that returns an instance of `Bar` and let the instance of `Foo` create `Bar` at a later time; we might do this if `Bar` is only created based on some condition/event at a later time.
+    - if we are passing multiple infrastructure dependencies we can use a "create" object that we pass in to the constructor: `{ Bar: (...) => Bar.create(...), Baz: ... }`; `foo` can then call `create.Bar(...)` to get a `Bar` instance at a later time.
     - `Foo.createNull` can then pass in a "create" object with nulled factories so that when `foo` calls `create.Bar(...)` it gets a `Bar` instance created by `Bar.createNull`
+    - NOTE: We wrap all create fucntions eg `Bar.create` / `Bar.createNull` in a function because when injecting delayed nullables (`Bar.createNull`), the `.createNull` may take non-production parameters to configure it. 
   - If you see `Bar.create` within an instance of `Foo` refactor to inject it using either (1) or (2)
   - if you had to create `Bar.create`, repeat this process but with `Bar` in place of `Foo`
   - keep recursing as required
