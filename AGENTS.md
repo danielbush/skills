@@ -24,3 +24,7 @@ npx opensrc <owner>/<repo>      # GitHub repo (e.g., npx opensrc vercel/ai)
 ```
 
 <!-- opensrc:end -->
+
+## Active Work
+
+See [TODO.md](TODO.md) for current tasks and [PRD.md](PRD.md) for the broader plan on architecture skills.
