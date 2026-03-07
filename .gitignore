@@ -1,3 +1,6 @@
 *.skill
 data/*
 !data/.keep
+
+# opensrc - source code for packages
+opensrc/

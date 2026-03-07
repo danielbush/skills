@@ -1,0 +1,19 @@
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
+
+version: "3"
+
+vars:
+  GREETING: Hello, world!
+
+tasks:
+  default:
+    desc: Print a greeting message
+    cmds:
+      - echo "{{.GREETING}}"
+    silent: true
+
+  fetch:skill-creator:
+    desc: Fetch anthropic create-skills repo using opensrc
+    cmds:
+      - bunx opensrc fetch https://github.com/anthropics/skills/tree/main/skills/skill-creator
+    silent: true
