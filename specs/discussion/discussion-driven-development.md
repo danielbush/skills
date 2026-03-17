@@ -28,6 +28,17 @@ Memory     ──→ preserves the reasoning that vocabulary and patterns can't 
 
 As agents take on more implementation work, the human's role shifts from writing code to steering direction. But there's a risk: the human drifts away from the technical reality and loses the ability to make good decisions. The vocabulary and discussion-driven approach addresses this — it keeps the human engaged at the *conceptual* level even when they're not writing code. Naming things, reviewing architecture narratives, discussing trade-offs in shared terms — these are all ways the human stays across what's happening without needing to read every line of code. This extends beyond a single codebase: a human orchestrating multiple systems needs to hold the essential structure of each in their head, and shared vocabulary is how you compress a system down to something a human can carry.
 
+### Grounded understanding through examples
+
+Staying engaged at the conceptual level isn't enough on its own — understanding has to be *grounded*. Humans learn by doing, by seeing concrete examples that make abstract concepts tangible. The agent can actively help with this:
+
+- **Learning the lingo** — the agent can teach vocabulary not just by defining terms but by showing them in action. "Here's what a DELAYED_INSTANTIATION looks like in the actual code. Here's what happens if you don't do it."
+- **Key examples** — for any concept, there are one or two examples that make it click. The agent can find or construct these: "this test illustrates exactly what CASCADING_NULLABLES means." The example *is* the understanding.
+- **Throwaway code as a learning tool** — the agent can write a small test or snippet purely to illustrate a concept, even if the system already has its own tests. The code gets thrown away; the understanding stays. This is the human getting their hands dirty without needing to build the production system.
+- **Visual illustration** — diagrams, data flow, dependency graphs — the agent can generate these to make structure visible. A human who can *see* the A-Frame layers or the dependency chain between nullable classes carries that mental model forward.
+
+The point: vocabulary gives you the *words*, but examples give you the *meaning*. A human who has seen a key example can reason about the concept in new situations. One who has only read the definition cannot.
+
 ### Beyond markdown files: toward a graph of managed systems
 
 The current implementation (md files in a repo) is a starting point, not the end state. The artifacts described here — vocabulary, principles, session history, decisions, goals — are really **nodes and relationships in a graph**. A vocabulary term is used in an architecture narrative, which is referenced by a spec, which was produced in a session, which advanced a goal in a PRD. Today these relationships are implicit (markdown links, `parent:` frontmatter). Eventually this could be a server-backed graph where:
@@ -39,6 +50,18 @@ The current implementation (md files in a repo) is a starting point, not the end
 - The human gets a unified view across all the systems they manage
 
 The md-files-in-a-repo approach is the right starting point — it's simple, versionable, and you can feel out the right structures before committing to infrastructure. But the design should keep this future in mind: the artifacts should be structured enough that migrating to a graph later is straightforward.
+
+### The agent as technical director's assistant
+
+These motivations paint a picture of a new role for the agent — not just a code generator, but an active partner in keeping the human technically grounded:
+
+- **Compressor**: distills complex systems into vocabulary the human can carry
+- **Teacher**: finds key examples that ground abstract concepts in concrete reality
+- **Narrator**: maintains the architecture story so the human can follow the system's evolution
+- **Historian**: preserves decisions and reasoning across sessions
+- **Cross-cutter**: (future, graph-backed) surfaces connections across systems that no single codebase view would reveal
+
+The human's job is to steer, decide, and stay grounded. The agent's job is to make that possible at scale.
 
 ---
 
