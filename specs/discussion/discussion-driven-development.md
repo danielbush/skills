@@ -1,7 +1,7 @@
 ---
 status: discussion
 created: 2026-03-17
-summary: Three-theme framework for human-agent collaboration — shared understanding (vocab + architecture narrative), design patterns (nullables, deep modules, DI/IoC), and institutional memory (specs, remember, summarize) — connected by the insight that humans and agents both work well at high compression
+summary: Four-theme framework for human-agent collaboration — shared understanding, design patterns, institutional memory, and a project collaboration framework (AGENTS.md, PRD.md, SESSIONS.md, TODO.md) — connected by the insight that humans and agents both work well at high compression
 ---
 
 # Discussion-Driven Development
@@ -81,6 +81,24 @@ Agent context resets between sessions. Specs are the persistent memory of *reaso
 - Spec files: `/Users/danb/projects/@oneput/specs/`
 - Summarize skill: `/Users/danb/projects/@oneput/.agents/skills/summarize/SKILL.md`
 - Remember skill: `/Users/danb/projects/@oneput/.agents/skills/remember/SKILL.md`
+
+---
+
+## Theme 4: Project Collaboration Framework (Way of Working)
+
+Beyond the specs system, there's a broader set of project files that together give the agent full continuity:
+
+| File | Purpose |
+|---|---|
+| **AGENTS.md** | How to work here — principles, testing, architecture, vocab pointers (always loaded) |
+| **PRD.md** | Where are we going — overarching goals that steer both human and agent |
+| **SESSIONS.md** | What happened — session log, enables "let's continue" |
+| **TODO.md** | What's in flight — current tasks with progress |
+| **specs/** | Why we did it — decisions and reasoning (searched on demand) |
+
+The key insight: these files serve different time horizons. AGENTS.md rarely changes (constitution). PRD.md evolves with goals. TODO.md changes daily. SESSIONS.md is append-only. Specs are the permanent archive. Together they let a human start a session with "let's continue" and the agent is fully oriented.
+
+See `active/project-collaboration-framework.md` for the detailed breakdown.
 
 ---
 
