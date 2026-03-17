@@ -4,6 +4,8 @@
 
 Explore and build tooling for the divide between human and agent in code and system design — where the human steers and the agent implements, but both need to stay aligned.
 
+If you need more detail, see [discussion-driven-development.md](specs/discussion/discussion-driven-development.md) .
+
 ## Core ideas
 
 ### Compression and grounding
