@@ -27,8 +27,19 @@ The jsed experience suggests collaborative — terms like FOCUSABLE and SHALLOW_
 - `/understand init` — agent reads the code, proposes a draft vocab and narrative for human review
 - `/understand update` — after a session where new concepts emerged, agent proposes additions
 
+## Grounding: vocabulary terms need key examples
+
+A definition tells you what to call something; an example tells you why it matters. Every vocabulary term should be paired with a **key example** — the one concrete instance that makes the concept click.
+
+The agent can help with this in several ways:
+- **Find** the best existing example in the codebase for a term
+- **Construct** a throwaway test or snippet that isolates the concept (can be discarded — the understanding is what stays)
+- **Contrast** — show what happens *without* the concept (e.g. remove the DELAYED_INSTANTIATION and watch it break)
+
+This suggests a `/explain <TERM>` command: given a vocabulary term, find or construct the most illustrative example in the codebase. Not a definition — a grounded demonstration.
+
 ## Next steps
 
 1. Review the jsed reference implementation to extract the repeatable pattern
-2. Draft the skill SKILL.md with both modes
+2. Draft the skill SKILL.md with all three modes (`init`, `update`, `explain`)
 3. Test on a second codebase (not jsed) to validate generalizability
