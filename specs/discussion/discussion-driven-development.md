@@ -39,6 +39,18 @@ Staying engaged at the conceptual level isn't enough on its own — understandin
 
 The point: vocabulary gives you the *words*, but examples give you the *meaning*. A human who has seen a key example can reason about the concept in new situations. One who has only read the definition cannot.
 
+### Who the vocabulary is actually for
+
+Most humans won't use the vocabulary terms — they'll say "pass a factory instead of the real thing" not "use DELAYED_INSTANTIATION." And that's fine. The agent's job is to map plain language to the right concepts internally. The formal vocabulary serves a narrower but important set of situations:
+
+- **Disambiguation** — when plain language is ambiguous, the agent can surface the precise term: "do you mean DELAYED_INSTANTIATION (pass a factory) or CASCADING_NULLABLES (nulled deps all the way down)?"
+- **Technically-inclined humans ceding control** — people who still need to audit what the agent is doing, or who are only just starting to let go of the nuts and bolts. The vocabulary gives them a compressed handle on what's happening without reading every line.
+- **Curious humans** — people who want to understand the system, not just use it. The vocabulary is a learning aid for them.
+
+The implication for tooling: the vocabulary should be the agent's internal language, not something imposed on the human. By default it surfaces when it helps — when there's ambiguity, when the human asks to understand, when precision matters — and stays invisible otherwise.
+
+But this should be configurable. Some humans (technically engaged, wanting to stay grounded) prefer the agent to *always* use vocabulary terms — it reinforces the shared language and keeps the human thinking in the right concepts even when they'd naturally reach for looser phrasing. This is a per-user or per-project preference, set in AGENTS.md or equivalent, not a property of the skill itself.
+
 ### Beyond markdown files: toward a graph of managed systems
 
 The current implementation (md files in a repo) is a starting point, not the end state. The artifacts described here — vocabulary, principles, session history, decisions, goals — are really **nodes and relationships in a graph**. A vocabulary term is used in an architecture narrative, which is referenced by a spec, which was produced in a session, which advanced a goal in a PRD. Today these relationships are implicit (markdown links, `parent:` frontmatter). Eventually this could be a server-backed graph where:
