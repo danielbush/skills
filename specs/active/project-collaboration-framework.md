@@ -40,6 +40,22 @@ AGENTS.md       ← how do we do things here? (principles, always-on)
 - **specs/** is the deep archive. Not read routinely — searched when the human or agent needs to recall *why* something was done a certain way.
 - **AGENTS.md** is the constitution. Doesn't change often. Tells the agent the non-negotiable principles (how to test, how to structure code, where to find vocab/architecture docs).
 
+## Memory model
+
+The artifacts map to different memory time horizons:
+
+| Artifact | Memory type | Lifespan |
+|---|---|---|
+| Current conversation | Short-term | Resets each session |
+| SESSIONS.md | Short-to-mid-term | Bridges sessions, recent history |
+| TODO.md | Short-to-mid-term | Current work, changes frequently |
+| specs/ | Mid-to-long-term | Decisions and reasoning, searchable archive |
+| Vocabulary, architecture, principles | Long-term | Durable shared understanding, rarely changes |
+| AGENTS.md | Long-term | Constitution, rarely changes |
+| PRD.md | Mid-term | Evolves with goals |
+
+This mirrors how human memory works: you remember what you're doing now (context), what you did yesterday (sessions), why you made a decision last month (specs), and the foundational concepts you've internalized (vocabulary/principles).
+
 ## Key distinctions
 
 - **SESSIONS.md vs specs/**: SESSIONS.md is a *log* — brief, chronological, optimized for "what happened last time." Specs are *documents* — structured, topical, optimized for "why did we decide X."
