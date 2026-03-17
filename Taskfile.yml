@@ -17,7 +17,7 @@ tasks:
     summary: |
       Change --agent for your editor if supported.
     cmds:
-      - bunx skills add anthropics/skills -g --agent claude-code --skill skill-creator
+      - bunx skills add anthropics/skills --agent claude-code --skill skill-creator
 
     silent: true
 
