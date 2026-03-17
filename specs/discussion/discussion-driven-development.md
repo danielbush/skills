@@ -22,6 +22,24 @@ Patterns   ──→ enable compressed instructions ("make it nullable")
 Memory     ──→ preserves the reasoning that vocabulary and patterns can't capture
 ```
 
+## Higher-Order Motivations
+
+### Keeping the human technically engaged
+
+As agents take on more implementation work, the human's role shifts from writing code to steering direction. But there's a risk: the human drifts away from the technical reality and loses the ability to make good decisions. The vocabulary and discussion-driven approach addresses this — it keeps the human engaged at the *conceptual* level even when they're not writing code. Naming things, reviewing architecture narratives, discussing trade-offs in shared terms — these are all ways the human stays across what's happening without needing to read every line of code. This extends beyond a single codebase: a human orchestrating multiple systems needs to hold the essential structure of each in their head, and shared vocabulary is how you compress a system down to something a human can carry.
+
+### Beyond markdown files: toward a graph of managed systems
+
+The current implementation (md files in a repo) is a starting point, not the end state. The artifacts described here — vocabulary, principles, session history, decisions, goals — are really **nodes and relationships in a graph**. A vocabulary term is used in an architecture narrative, which is referenced by a spec, which was produced in a session, which advanced a goal in a PRD. Today these relationships are implicit (markdown links, `parent:` frontmatter). Eventually this could be a server-backed graph where:
+
+- Vocabulary, principles, decisions, and goals are nodes
+- Relationships (uses, depends-on, produced-by, supersedes) are edges
+- Multiple codebases and systems connect to the same graph
+- An agent working on system A can see that a decision in system B affects it
+- The human gets a unified view across all the systems they manage
+
+The md-files-in-a-repo approach is the right starting point — it's simple, versionable, and you can feel out the right structures before committing to infrastructure. But the design should keep this future in mind: the artifacts should be structured enough that migrating to a graph later is straightforward.
+
 ---
 
 ## Theme 1: Shared Understanding of a Codebase
