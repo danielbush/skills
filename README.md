@@ -8,11 +8,16 @@ To add to a project:
 
 ```sh
 bunx skills add danielbush/skills --agent claude-code --skill nullables-refactor
+bunx skills add danielbush/skills --agent claude-code --skill nullables-test
 ```
 
 ### `nullables-refactor`
 
-Analyzes a file and produces a refactoring plan. Classifies code by side-effect boundary (PURE, IN_MEMORY, OUTSIDE_WORLD), identifies HARDWIRED_INFRASTRUCTURE, determines whether code should be an INFRASTRUCTURE_WRAPPER or a NULLABLE_CLASS, checks CREATE_BOUNDARY_RULE compliance, and decides on DELAYED_INSTANTIATION.
+Analyzes a file and produces a refactoring plan. Classifies code by side-effect boundary (PURE, IN_MEMORY, OUTSIDE_WORLD), identifies HARDWIRED_INFRA, determines whether code should be an INFRASTRUCTURE_WRAPPER or a NULLABLE_CLASS, checks CREATE_BOUNDARY_RULE compliance, and decides on DELAYED_INSTANTIATION.
+
+### `nullables-test`
+
+Writes illustrative tests after refactoring. Checks preconditions (all HARDWIRED_INFRA replaced by INJECTED_INFRA, every dependency has `.createNull()`, recursive nullability down to the leaves), then writes narrow, sociable, state-based tests using `.createNull()`. Tests illustrate the system's concepts and architecture, not just coverage.
 
 See `docs/vocabulary.md` for the shared vocabulary these skills use.
 
@@ -22,7 +27,7 @@ The refactoring skill has 4 test fixtures in `skills/nullables-refactor/evals/`:
 
 | Fixture | Tests |
 |---------|-------|
-| `hardwired-function.ts` | Standalone functions calling `fetch` — should be flagged as HARDWIRED_INFRASTRUCTURE and converted to an INFRASTRUCTURE_WRAPPER |
+| `hardwired-function.ts` | Standalone functions calling `fetch` — should be flagged as HARDWIRED_INFRA and converted to an INFRASTRUCTURE_WRAPPER |
 | `mixed-class.ts` | Class mixing PURE logic with `fs`/`fetch` calls — should extract wrappers and become a NULLABLE_CLASS |
 | `partial-nullable.ts` | Class with DUAL_FACTORY but CREATE_BOUNDARY_RULE violations — `.create()` called inside instance methods |
 | `already-compliant.ts` | Properly structured INFRASTRUCTURE_WRAPPER + NULLABLE_CLASS — should report compliance, no false positives |

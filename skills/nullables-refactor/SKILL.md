@@ -1,6 +1,6 @@
 ---
 name: nullables-refactor
-description: "Analyze a file and produce a refactoring plan to apply the Nullables pattern. Classifies code by side-effect boundary (PURE, IN_MEMORY, OUTSIDE_WORLD), identifies HARDWIRED_INFRASTRUCTURE, recommends INFRASTRUCTURE_WRAPPER or NULLABLE_CLASS conversion, checks DUAL_FACTORY and CREATE_BOUNDARY_RULE compliance, and decides on DELAYED_INSTANTIATION. Use when asked to refactor a file or module to follow the nullables pattern."
+description: "Analyze a file and produce a refactoring plan to apply the Nullables pattern. Classifies code by side-effect boundary (PURE, IN_MEMORY, OUTSIDE_WORLD), identifies HARDWIRED_INFRA, recommends INFRASTRUCTURE_WRAPPER or NULLABLE_CLASS conversion, checks DUAL_FACTORY and CREATE_BOUNDARY_RULE compliance, and decides on DELAYED_INSTANTIATION. Use when asked to refactor a file or module to follow the nullables pattern."
 ---
 
 # Nullables Refactor
@@ -9,7 +9,7 @@ Analyze a file and produce a step-by-step refactoring plan to make OUTSIDE_WORLD
 
 ## Vocabulary
 
-This skill uses terms from `docs/vocabulary.md`. Key terms: PURE, IN_MEMORY, OUTSIDE_WORLD, INFRASTRUCTURE_WRAPPER, NULLABLE_CLASS, HARDWIRED_INFRASTRUCTURE, CREATE_BOUNDARY_RULE, DUAL_FACTORY, EMBEDDED_STUB, NULLABLE, FACTORY_OBJECT, DELAYED_INSTANTIATION, CONFIGURABLE_RESPONSE, OUTPUT_TRACKING, VALUE_OBJECT.
+This skill uses terms from `docs/vocabulary.md`. Key terms: PURE, IN_MEMORY, OUTSIDE_WORLD, INFRASTRUCTURE_WRAPPER, NULLABLE_CLASS, HARDWIRED_INFRA, INJECTED_INFRA, CREATE_BOUNDARY_RULE, DUAL_FACTORY, EMBEDDED_STUB, NULLABLE, FACTORY_OBJECT, DELAYED_INSTANTIATION, CONFIGURABLE_RESPONSE, OUTPUT_TRACKING, VALUE_OBJECT.
 
 ## How We Break Down The World
 
@@ -63,7 +63,7 @@ This is the critical first question for any OUTSIDE_WORLD code unit. Before chec
 
 #### If it's a standalone function with OUTSIDE_WORLD side effects
 
-This is HARDWIRED_INFRASTRUCTURE. A function that performs I/O should become an INFRASTRUCTURE_WRAPPER class:
+This is HARDWIRED_INFRA. A function that performs I/O should become an INFRASTRUCTURE_WRAPPER class:
 
 - **Recommend**: convert to a class with DUAL_FACTORY (`.create()` / `.createNull()`).
 - The class wraps the external system and provides a clean API.
@@ -74,14 +74,14 @@ This is HARDWIRED_INFRASTRUCTURE. A function that performs I/O should become an 
 #### If it's a class — determine its role:
 
 - **Is its sole purpose to wrap one external system** (e.g., HTTP, database, filesystem)? → It should be an **INFRASTRUCTURE_WRAPPER**. It owns the EMBEDDED_STUB, provides CONFIGURABLE_RESPONSE, and is the leaf of the dependency graph.
-- **Does it have business logic or orchestration AND also contain I/O calls?** → It is a **NULLABLE_CLASS** that has HARDWIRED_INFRASTRUCTURE. The I/O should be **extracted** into a separate INFRASTRUCTURE_WRAPPER and injected into this class.
+- **Does it have business logic or orchestration AND also contain I/O calls?** → It is a **NULLABLE_CLASS** that has HARDWIRED_INFRA. The I/O should be **extracted** into a separate INFRASTRUCTURE_WRAPPER and injected into this class.
 
 The difference matters: an INFRASTRUCTURE_WRAPPER *contains* the external calls and stubs them internally. A NULLABLE_CLASS *uses* INFRASTRUCTURE_WRAPPERs via injection and gets NULLABLE versions in tests.
 
 Then check the following:
 
-1. **HARDWIRED_INFRASTRUCTURE?**
-   - Scan for any OUTSIDE_WORLD calls used directly inside the class (imported and called inline rather than injected). These are HARDWIRED_INFRASTRUCTURE.
+1. **HARDWIRED_INFRA?**
+   - Scan for any OUTSIDE_WORLD calls used directly inside the class (imported and called inline rather than injected). These are HARDWIRED_INFRA.
    - PURE and IN_MEMORY code is fine — only flag code that crosses the process boundary.
    - **Recommend**: extract into an INFRASTRUCTURE_WRAPPER and inject through CREATE_BOUNDARY_RULE.
    - This check comes first because it often reshapes the class — the remaining checks apply to the class *after* extraction.
@@ -115,7 +115,7 @@ Then check the following:
 - No nullable treatment needed.
 - If stateless → plain functions are fine.
 - If stateful with IN_MEMORY mutation → a class with `.create()` is fine. No `.createNull()` needed.
-- **Flag any OUTSIDE_WORLD calls found here** — they're HARDWIRED_INFRASTRUCTURE that should be extracted.
+- **Flag any OUTSIDE_WORLD calls found here** — they're HARDWIRED_INFRA that should be extracted.
 
 #### VALUE_OBJECT
 - Should have `.create()` (may require all params).
@@ -149,7 +149,7 @@ Present the plan as:
 | ...       | PURE / IN_MEMORY / OUTSIDE_WORLD | INFRASTRUCTURE_WRAPPER / NULLABLE_CLASS / PURE / VALUE_OBJECT | ... | ... |
 
 ### Issues Found
-1. **[HARDWIRED_INFRASTRUCTURE | CREATE_BOUNDARY_RULE_VIOLATION | MISSING_DUAL_FACTORY | ...]** `CodeUnit` — description
+1. **[HARDWIRED_INFRA | CREATE_BOUNDARY_RULE_VIOLATION | MISSING_DUAL_FACTORY | ...]** `CodeUnit` — description
    - **Recommendation**: what to do
    - **Why**: brief rationale
 
@@ -166,8 +166,15 @@ Present the plan as:
 - Any decisions that need human input (e.g., naming, DELAYED_INSTANTIATION vs immediate, third-party framework boundaries)
 ```
 
+## After Refactoring
+
+Once the refactoring plan has been executed, use the `nullables-test` skill to write tests. That skill checks that:
+- All HARDWIRED_INFRA has been replaced by INJECTED_INFRA
+- Every piece of INJECTED_INFRA has `.createNull()` (recursing into dependencies if needed)
+- The class under test is ready for narrow, sociable, state-based tests via `.createNull()`
+
 ## What This Skill Does NOT Do
 
-- Does not execute the refactoring (use the `nullables` skill for implementation guidance).
-- Does not write tests (the plan may recommend what tests to write).
+- Does not execute the refactoring — it produces the plan for the human to review.
+- Does not write tests — use `nullables-test` after refactoring is complete.
 - Does not make decisions about third-party framework boundaries — it flags them for discussion.

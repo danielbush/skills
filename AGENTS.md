@@ -33,7 +33,8 @@ Use vocabulary terms (UPPER_SNAKE_CASE) from `docs/vocabulary.md` when they exis
 
 ## Skills
 
-- `skills/nullables-refactor/` — analyze a file and plan nullable refactoring (side-effect boundary classification, HARDWIRED_INFRASTRUCTURE detection, CREATE_BOUNDARY_RULE checks)
+- `skills/nullables-refactor/` — analyze a file and plan nullable refactoring (side-effect boundary classification, HARDWIRED_INFRA detection, CREATE_BOUNDARY_RULE checks)
+- `skills/nullables-test/` — write illustrative tests after refactoring (precondition checks, recursive nullability verification, state-based tests via .createNull)
 - `skills/effect-ts/` — effect-ts reference
 - `sandbox/nullables-skill/` — original monolithic nullables skill (reference only, being superseded)
 

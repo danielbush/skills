@@ -25,7 +25,7 @@ The kinds of code units the agent encounters, grouped by their relationship to O
 A class whose sole purpose is to interface with one external system (network, disk, database, environment). Provides a clean API matching the application's needs. Has DUAL_FACTORY. Contains an EMBEDDED_STUB for its NULLABLE form. Also called a "Client" (e.g., `HttpClient`, `DiskClient`). This is the leaf of the dependency graph — where OUTSIDE_WORLD code lives after refactoring.
 
 #### NULLABLE_CLASS
-An infrastructure or application class that has DUAL_FACTORY and receives INFRASTRUCTURE_WRAPPERs (or other NULLABLE_CLASSes) as injected dependencies. Does not contain OUTSIDE_WORLD code directly — instead, it orchestrates injected dependencies that do. `.createNull()` injects NULLABLE versions of those dependencies. An application-level class is effectively a high-level NULLABLE_CLASS because it holds instances that ultimately talk to the outside world.
+An infrastructure or application class that has DUAL_FACTORY and receives INFRASTRUCTURE_WRAPPERs (or other NULLABLE_CLASSes) as INJECTED_INFRA. Does not contain OUTSIDE_WORLD code directly — instead, it orchestrates injected dependencies that do. `.createNull()` injects NULLABLE versions of those dependencies. An application-level class is effectively a high-level NULLABLE_CLASS because it holds instances that ultimately talk to the outside world.
 
 ### Does not talk to the outside world
 
@@ -37,8 +37,11 @@ An immutable (or mutable-for-IN_MEMORY-ops) class representing data. Has `.creat
 
 ## Refactoring Concepts
 
-### HARDWIRED_INFRASTRUCTURE
-OUTSIDE_WORLD code that is imported and used directly inside a class or function rather than injected through the CREATE_BOUNDARY_RULE. PURE and IN_MEMORY code is not HARDWIRED_INFRASTRUCTURE — only code that crosses the process boundary. This is the primary refactoring target: extract into an INFRASTRUCTURE_WRAPPER and inject it. The natural opposite is an injected dependency flowing through DUAL_FACTORY.
+### HARDWIRED_INFRA
+OUTSIDE_WORLD code that is imported and used directly inside a class or function rather than injected through the CREATE_BOUNDARY_RULE. PURE and IN_MEMORY code is not HARDWIRED_INFRA — only code that crosses the process boundary. This is the primary refactoring target: extract into an INFRASTRUCTURE_WRAPPER and inject it. The opposite is INJECTED_INFRA.
+
+### INJECTED_INFRA
+An OUTSIDE_WORLD dependency that has been properly extracted into an INFRASTRUCTURE_WRAPPER (or NULLABLE_CLASS) and is injected through the CREATE_BOUNDARY_RULE. The "after" state of refactoring HARDWIRED_INFRA. For the class under test to be testable, every piece of INJECTED_INFRA must itself have `.createNull()` — if it doesn't, you need to recursively refactor that dependency first, bottoming out at INFRASTRUCTURE_WRAPPERs with EMBEDDED_STUBs.
 
 ### CREATE_BOUNDARY_RULE
 The rule that all dependency `.create()` calls must be lexically inside the class's own static `.create()` method (and correspondingly `.createNull()` calls inside `.createNull()`). The static factory is the boundary where dependencies are born and injected into the constructor. Finding a `.create()` call inside an instance method or constructor is a CREATE_BOUNDARY_RULE violation — the fix is either immediate instantiation in the static factory or DELAYED_INSTANTIATION via a FACTORY_OBJECT.
