@@ -2,9 +2,11 @@
 
 ## Up next
 
-- [ ] **Improve nullables-refactor skill** — with-skill eval missed noting compliant code (e.g. `findUser()` using injected `this.db`). Add guidance to call out what's working, not just violations.
+- [ ] **Evals for nullables-test** — create fixture files and eval suite for the test skill (similar to nullables-refactor evals)
+- [ ] **Incorporate real-world feedback** — human may try skills on another project; adjust based on findings
+- [ ] **Big-picture explanation** — skills should be able to explain the whole framework (side-effect boundaries, HARDWIRED vs INJECTED, WRAPPER vs NULLABLE_CLASS, refactor→test pipeline) to reinforce understanding
+- [ ] **Improve nullables-refactor skill** — eval gap: missed noting compliant code (e.g. `findUser()` using INJECTED_INFRA). Add guidance to call out what's working, not just violations.
 - [ ] **Vocabulary pass (broader)** — `docs/vocabulary.md` exists but is scoped to nullables. Still need: deep modules, on-demand vs ambient skills, the four themes from `specs/discussion/discussion-driven-development.md`.
-- [ ] **Break up nullables skill** ⚡ — original SKILL.md is still monolithic; extract named concepts, separate into commands (`/nullables test`), move detailed reference material to `references/` → `specs/active/design-patterns-principles.md`
 
 ## Active
 
@@ -15,8 +17,10 @@
 
 ## Done
 
+- [x] Created `nullables-test` skill with precondition checks, instantiation guidance (new vs createNull), and illustrative test philosophy
 - [x] Created `nullables-refactor` skill with side-effect boundary classification and eval suite (4 fixtures, 26 assertions)
-- [x] Created `docs/vocabulary.md` — 15 terms scoped to nullables (HARDWIRED_INFRASTRUCTURE, CREATE_BOUNDARY_RULE, NULLABLE_CLASS, etc.)
+- [x] Created `docs/vocabulary.md` — 15+ terms including HARDWIRED_INFRA, INJECTED_INFRA, CREATE_BOUNDARY_RULE, NULLABLE_CLASS
+- [x] Moved original monolithic nullables skill to `sandbox/nullables-skill/`
 - [x] Wrote discussion-driven-development discussion spec (four themes + higher-order motivations)
 - [x] Broke discussion into four actionable active specs
 - [x] Absorbed old PRD.md and TODO.md into specs system

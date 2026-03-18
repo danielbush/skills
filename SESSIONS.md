@@ -36,9 +36,18 @@
 - Added `task evals:nullables-refactor` to Taskfile.yml
 - Updated README.md with both nullable skills and eval docs
 
+- Later in session:
+  - Created `nullables-test` skill — writes illustrative tests after refactoring, with precondition checks (recursive nullability verification)
+  - Clarified test instantiation: `new Foo(Bar.createNull({...}))` when testing Foo itself (fine-grained CONFIGURABLE_RESPONSE control) vs `Foo.createNull()` when Foo is a dependency
+  - Renamed HARDWIRED_INFRASTRUCTURE → **HARDWIRED_INFRA**, added **INJECTED_INFRA** (the opposite — properly extracted and injected through CREATE_BOUNDARY_RULE)
+  - Moved original monolithic nullables skill to `sandbox/nullables-skill/`
+  - Refactor skill now points to test skill as next step
+
 ### What's next
 
-1. **Improve the skill based on eval gap** — the with-skill run missed noting compliant code (e.g., `findUser()` correctly uses injected `this.db`). Add guidance to call out what's working, not just violations.
-2. **Vocabulary pass (broader)** — current vocabulary is scoped to nullables-refactor. Still need to name broader concepts: deep modules, on-demand vs ambient skills, the four themes.
-3. **Break up nullables skill** — the original SKILL.md is still monolithic. The refactor skill is now separate, but the main skill still needs splitting.
-4. Then: shared understanding skill, design patterns principles, specs system.
+1. **Evals for nullables-test** — create fixture files and eval suite for the test skill, similar to what we did for nullables-refactor
+2. **Feedback from real usage** — human may try skills on another project; incorporate feedback
+3. **Big-picture explanation** — the agent should be able to explain the whole framework (side-effect boundaries, HARDWIRED vs INJECTED, WRAPPER vs NULLABLE_CLASS, the refactor→test pipeline) so humans get it reinforced and can adjust
+4. **Improve refactor skill** — eval gap: missed noting compliant code (e.g., `findUser()` correctly uses injected `this.db`)
+5. **Vocabulary pass (broader)** — current vocabulary is scoped to nullables. Still need: deep modules, on-demand vs ambient skills, the four themes
+6. Then: shared understanding skill, design patterns principles, specs system
