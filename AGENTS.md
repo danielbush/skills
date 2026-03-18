@@ -33,8 +33,9 @@ Use vocabulary terms (UPPER_SNAKE_CASE) from `docs/vocabulary.md` when they exis
 
 ## Skills
 
-- `skills/nullables/` — nullables pattern and A-Frame architecture
+- `skills/nullables-refactor/` — analyze a file and plan nullable refactoring (side-effect boundary classification, HARDWIRED_INFRASTRUCTURE detection, CREATE_BOUNDARY_RULE checks)
 - `skills/effect-ts/` — effect-ts reference
+- `sandbox/nullables-skill/` — original monolithic nullables skill (reference only, being superseded)
 
 <!-- opensrc:start -->
 

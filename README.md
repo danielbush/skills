@@ -7,13 +7,8 @@ Skills for writing code that loosely follows James Shore's [nullable pattern](ht
 To add to a project:
 
 ```sh
-bunx skills add danielbush/skills --agent claude-code --skill nullables
 bunx skills add danielbush/skills --agent claude-code --skill nullables-refactor
 ```
-
-### `nullables`
-
-The main implementation skill. Guides writing and testing code using the nullable pattern: DUAL_FACTORY (`.create`/`.createNull`), INFRASTRUCTURE_WRAPPERs, EMBEDDED_STUBs, and state-based testing without mocks.
 
 ### `nullables-refactor`
 
