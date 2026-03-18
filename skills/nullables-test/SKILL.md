@@ -66,6 +66,35 @@ If `.createNull()` throws or makes real I/O calls, the EMBEDDED_STUBs or CONFIGU
 
 ## Writing Tests
 
+### How to instantiate in tests
+
+There are two distinct cases — getting this right matters:
+
+#### Testing `Foo` itself (Foo is the class under test)
+
+Use `new Foo(...)` directly and pass in nulled dependencies with specific CONFIGURABLE_RESPONSE values:
+
+```typescript
+// Testing Foo — use `new` so you control each dependency's configuration
+const bar = Bar.createNull({ response: specificValue });
+const client = HttpClient.createNull({ status: 404 });
+const foo = new Foo(bar, client);
+```
+
+This gives you fine-grained control over each dependency. You can configure exactly the scenario you want to test. `Foo.createNull()` would bundle its own defaults, which may not expose the granularity you need.
+
+#### Foo as a dependency (testing something that uses Foo)
+
+Use `Foo.createNull()` — its bundled defaults keep the test focused on the actual class under test:
+
+```typescript
+// Testing AppService which depends on Foo
+// We don't care about Foo's internals here
+const appService = new AppService(Foo.createNull());
+```
+
+`Foo.createNull()` exists to make Foo a convenient, safe dependency in other tests. It provides sensible defaults so the test reader doesn't get distracted by Foo's configuration.
+
 ### What to test
 
 For each class, write tests that illustrate its key behaviors:
@@ -81,7 +110,7 @@ These tests verify the wrapper's contract — that the EMBEDDED_STUB faithfully 
 
 #### For NULLABLE_CLASSes (orchestrators)
 
-- **Test the core behavior**: what does this class *do*? Use `.createNull()` to create an instance, call its methods, verify the result. The test should read like a description of the class's purpose.
+- **Test the core behavior**: what does this class *do*? Instantiate with `new` and pass nulled deps, call its methods, verify the result. The test should read like a description of the class's purpose.
 - **Test with CONFIGURABLE_RESPONSE**: configure specific dependency responses to test how the class handles different inputs from the outside world
 - **Test OUTPUT_TRACKING on dependencies**: verify the class makes the right calls to its dependencies (what was written, in what order) — use trackers, not mocks
 - **Test edge cases that matter to the domain**: not every edge case, just the ones that illuminate how the system handles its key scenarios
@@ -97,35 +126,39 @@ These tests verify the wrapper's contract — that the EMBEDDED_STUB faithfully 
 - Test with plain inputs and outputs
 - No nullable machinery needed
 
-### How to write them
+### Example
 
 ```typescript
-describe('ClassName', () => {
-  // Use .createNull() — never .create() in unit tests
-  // .create() is for narrow integration tests only
+describe('ReportGenerator', () => {
+  // ReportGenerator is the class under test — use `new` with nulled deps
+  // so we can configure each dependency's responses for the test scenario
 
-  it('describes what the class does in domain terms', () => {
-    const instance = ClassName.createNull({
-      // CONFIGURABLE_RESPONSE makes the test self-documenting:
-      // a reader sees exactly what scenario is being tested
-      someResponse: { /* ... */ },
+  it('generates a report from a template and data', () => {
+    const fileStore = FileStore.createNull({
+      templates: { 'Sales.html': '<h1>{{title}}</h1>{{rows}}' },
+    });
+    const webhook = WebhookClient.createNull();
+    const generator = new ReportGenerator(fileStore, webhook);
+
+    const result = generator.generate({
+      title: 'Sales',
+      rows: [{ label: 'Q1', value: 100 }],
     });
 
-    const result = instance.doSomething();
-
-    expect(result).toEqual(/* expected outcome */);
+    expect(result).toContain('<h1>Sales</h1>');
   });
 
-  it('tracks what was written to the outside world', () => {
-    const instance = ClassName.createNull();
-    // Get a tracker BEFORE the action
-    const tracker = instance.dependency.trackWrites();
+  it('notifies the webhook after writing the report', () => {
+    const fileStore = FileStore.createNull();
+    const webhook = WebhookClient.createNull();
+    const tracker = webhook.trackNotifications();
+    const generator = new ReportGenerator(fileStore, webhook);
 
-    instance.doSomething();
+    generator.generate({ title: 'Sales', rows: [] });
 
-    // State-based assertion — what happened, not how
+    // State-based: what was sent, not how
     expect(tracker.data).toEqual([
-      { /* expected write */ },
+      { title: 'Sales', path: './output/Sales-report.html' },
     ]);
   });
 });
@@ -133,11 +166,12 @@ describe('ClassName', () => {
 
 ### What NOT to do
 
-- **Don't use mocks, spies, or stubs** — use `.createNull()` and CONFIGURABLE_RESPONSE instead
+- **Don't use mocks, spies, or stubs** — use `.createNull()` with CONFIGURABLE_RESPONSE instead
 - **Don't test implementation details** — test behaviors and outcomes
 - **Don't write exhaustive tests** — write illustrative ones that teach a reader about the system
 - **Don't use `.create()` in unit tests** — `.create()` is for narrow integration tests that verify real OUTSIDE_WORLD behavior, run separately
 - **Don't add tests for things that can't fail** — if the code is PURE and trivial, a test adds noise not signal
+- **Don't use `Foo.createNull()` when testing Foo itself** — use `new Foo(deps.createNull(...))` for fine-grained control
 
 ## Integration Tests (Sparingly)
 
