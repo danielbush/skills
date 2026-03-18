@@ -31,6 +31,15 @@ tasks:
         skills-ref \
         validate skills/nullables
 
+  evals:nullables-refactor:
+    desc: Run nullables-refactor skill evals using skill-creator
+    summary: |
+      Spawns with-skill and without-skill runs for each fixture in
+      skills/nullables-refactor/evals/, grades assertions, aggregates
+      benchmarks, and launches the eval viewer.
+    cmds:
+      - claude -p "Use the skill-creator skill to run evals for skills/nullables-refactor. The eval definitions are in skills/nullables-refactor/evals/evals.json with fixture files in evals/files/. Put results in skills/nullables-refactor-workspace/."
+
   fetch:skill-creator:
     desc: Fetch anthropic create-skills repo using opensrc
     cmds:

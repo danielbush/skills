@@ -2,8 +2,9 @@
 
 ## Up next
 
-- [ ] **Vocabulary pass** — name key principles and entities from `specs/discussion/discussion-driven-development.md` (deep modules, nullables, on-demand vs ambient skills, the themes). Create `docs/vocabulary.md` for this repo.
-- [ ] **Break up nullables skill** ⚡ — current SKILL.md is monolithic; extract named concepts, separate into commands (`/nullables refactor`, `/nullables test`), move detailed reference material to `references/` → `specs/active/design-patterns-principles.md`
+- [ ] **Improve nullables-refactor skill** — with-skill eval missed noting compliant code (e.g. `findUser()` using injected `this.db`). Add guidance to call out what's working, not just violations.
+- [ ] **Vocabulary pass (broader)** — `docs/vocabulary.md` exists but is scoped to nullables. Still need: deep modules, on-demand vs ambient skills, the four themes from `specs/discussion/discussion-driven-development.md`.
+- [ ] **Break up nullables skill** ⚡ — original SKILL.md is still monolithic; extract named concepts, separate into commands (`/nullables test`), move detailed reference material to `references/` → `specs/active/design-patterns-principles.md`
 
 ## Active
 
@@ -14,6 +15,8 @@
 
 ## Done
 
+- [x] Created `nullables-refactor` skill with side-effect boundary classification and eval suite (4 fixtures, 26 assertions)
+- [x] Created `docs/vocabulary.md` — 15 terms scoped to nullables (HARDWIRED_INFRASTRUCTURE, CREATE_BOUNDARY_RULE, NULLABLE_CLASS, etc.)
 - [x] Wrote discussion-driven-development discussion spec (four themes + higher-order motivations)
 - [x] Broke discussion into four actionable active specs
 - [x] Absorbed old PRD.md and TODO.md into specs system
