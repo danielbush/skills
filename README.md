@@ -1,4 +1,18 @@
-# Layout
+# Skills
+
+## Nullable skill
+
+The main skill of interest here is the nullables skill.
+
+This is a skill for writing code that loosely follows James Shore's [nullable pattern](https://www.jamesshore.com/v2/projects/nullables/testing-without-mocks)
+
+To add to a project:
+
+```sh
+bunx skills add danielbush/skills --agent claude-code --skill nullables
+```
+
+## Development
 
 A place to incubate and play with skills or related things to do with context.  Very much in alpha.
 
@@ -15,16 +29,4 @@ AGENTS.md is the "always-on" layer, skills are the "on-demand" layer. Same idea 
   specs/
     discussion/    → big picture + old PRD
     active/        → four actionable specs (including the framework itself)
-```
-
-# Skills
-
-The main skill of interest here is the nullables skill.
-
-This is a skill for writing code that loosely follows James Shore's [nullable pattern](https://www.jamesshore.com/v2/projects/nullables/testing-without-mocks)
-
-To add to a project:
-
-```sh
-bunx skills add danielbush/skills --agent claude-code --skill nullables
 ```
