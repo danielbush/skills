@@ -4,3 +4,6 @@ data/*
 
 # opensrc - source code for packages
 opensrc/
+
+# eval workspaces (generated, not source)
+*-workspace/
