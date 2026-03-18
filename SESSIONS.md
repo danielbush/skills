@@ -50,4 +50,5 @@
 3. **Big-picture explanation** — the agent should be able to explain the whole framework (side-effect boundaries, HARDWIRED vs INJECTED, WRAPPER vs NULLABLE_CLASS, the refactor→test pipeline) so humans get it reinforced and can adjust
 4. **Improve refactor skill** — eval gap: missed noting compliant code (e.g., `findUser()` correctly uses injected `this.db`)
 5. **Vocabulary pass (broader)** — current vocabulary is scoped to nullables. Still need: deep modules, on-demand vs ambient skills, the four themes
-6. Then: shared understanding skill, design patterns principles, specs system
+6. **Explore @oneput skills** — look at `remember`, `summarize`, `symbol-lookup` at `/Users/danb/projects/@oneput/.agents/skills/` for potential generalization into this repo; plan how to convert `jsed` to a new generalized skill here
+7. Then: shared understanding skill, design patterns principles, specs system

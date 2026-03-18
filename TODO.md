@@ -8,6 +8,11 @@
 - [ ] **Improve nullables-refactor skill** — eval gap: missed noting compliant code (e.g. `findUser()` using INJECTED_INFRA). Add guidance to call out what's working, not just violations.
 - [ ] **Vocabulary pass (broader)** — `docs/vocabulary.md` exists but is scoped to nullables. Still need: deep modules, on-demand vs ambient skills, the four themes from `specs/discussion/discussion-driven-development.md`.
 
+## Explore next
+
+- [ ] **Generalize @oneput skills** — look at `/Users/danb/projects/@oneput/.agents/skills/remember`, `summarize`, `symbol-lookup` for potential extraction into this repo
+- [ ] **Convert jsed to generalized skill** — `/Users/danb/projects/@oneput/.agents/skills/jsed` → new generalized skill in this repo (relates to shared-understanding-skill spec)
+
 ## Active
 
 - [ ] **Shared understanding skill** — generalize jsed's vocab + architecture narrative + orientation into a reusable skill; draft `/understand init`, `/understand update`, `/explain <TERM>` → `specs/active/shared-understanding-skill.md`
