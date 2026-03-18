@@ -43,6 +43,12 @@
   - Moved original monolithic nullables skill to `sandbox/nullables-skill/`
   - Refactor skill now points to test skill as next step
 
+### Continued (later)
+
+- Fixed vocabulary sharing: `docs/vocabulary.md` is the single source, symlinked from `skills/nullables-refactor/references/vocabulary.md` and `skills/nullables-test/references/vocabulary.md`. Both `pnpx skills` and `bunx skills add` resolve the symlinks, so target projects get the real file.
+- Updated SKILL.md in both skills to reference `references/vocabulary.md` instead of `docs/vocabulary.md`.
+- Added @oneput skills pointers to TODO.md ("Explore next" section).
+
 ### What's next
 
 1. **Evals for nullables-test** — create fixture files and eval suite for the test skill, similar to what we did for nullables-refactor
