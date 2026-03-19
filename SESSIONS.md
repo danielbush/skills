@@ -58,3 +58,27 @@
 5. **Vocabulary pass (broader)** — current vocabulary is scoped to nullables. Still need: deep modules, on-demand vs ambient skills, the four themes
 6. **Explore @oneput skills** — look at `remember`, `summarize`, `symbol-lookup` at `/Users/danb/projects/@oneput/.agents/skills/` for potential generalization into this repo; plan how to convert `jsed` to a new generalized skill here
 7. Then: shared understanding skill, design patterns principles, specs system
+
+## 2026-03-20
+
+### What happened
+
+- Captured testing principles: AAA pattern (explicit act step), prefer middle/top-down over exhaustive bottom-up, `new` for thing under test vs `createNull` for dependencies (confirmed per James Shore)
+- Discussed `/explain-nullables` as a standalone skill; added to backlog
+- Discussed entry-point questions — FAQ-style "doors into" a system on top of vocabulary + architecture narrative
+- Added mcporter skill, opensrc skill, spec scanner skill, pi harness exploration to backlog
+- Discussed AGENTS.md routing for automatic orientation (hardwire into per-package AGENTS.md instead of requiring skill invocation)
+- Created `specs/BACKLOG.md` with grep-friendly format (`grep -A 3 "^## "` for quick index)
+- Consolidated all nullables work into single active spec `specs/active/nullables-skills.md`
+- Removed TODO.md; active work now lives in `specs/active/`, backlog in `specs/BACKLOG.md`
+- Reworked "Continuing a session" → "Starting a session" in CLAUDE.md — agent now prompts human with 3 options
+- Merged PRD.md content into discussion spec; PRD.md is now a 3-line pointer
+
+### For next time
+
+**Primary concern: portability and consolidation.** Two related worries:
+
+1. **Portability** — how to make the spec system, vocabulary, orientation, and other tooling portable so it can be used across projects (not just this repo or @oneput)
+2. **Consolidation** — incorporate learnings from `/Users/danb/projects/@oneput/packages/jsed` and the initial skill attempts in `/Users/danb/projects/@oneput/.agents/skills` back into this repo as the single source, while making it easy to update and consume over in @oneput and its sister packages
+
+These cut across several backlog items (SHARED_UNDERSTANDING, GENERALIZE_SPECS, GENERALIZE_ONEPUT, GENERALIZE_JSED) but the headline is: **this repo should be the source of truth for skills and systems, with a smooth path to use them in other projects.**
