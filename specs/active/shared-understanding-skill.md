@@ -38,8 +38,19 @@ The agent can help with this in several ways:
 
 This suggests a `/explain <TERM>` command: given a vocabulary term, find or construct the most illustrative example in the codebase. Not a definition — a grounded demonstration.
 
+## Automatic orientation via AGENTS.md routing
+
+Rather than requiring the human to invoke `/jsed` (or `/understand`) to load orientation, hardwire it into each package's AGENTS.md. The root AGENTS.md acts as a router:
+
+> "If you're working in `packages/foo/`, read `packages/foo/AGENTS.md` and orient yourself."
+
+Each package AGENTS.md then contains (or points to) the vocabulary, architecture narrative, and entry-point questions for that package. Orientation happens automatically based on where the work is — no skill invocation needed.
+
+This means the orientation skill's artifacts (vocab, narrative, entry-point questions) live in the package itself, not as a separate skill the human has to remember to call.
+
 ## Next steps
 
 1. Review the jsed reference implementation to extract the repeatable pattern
 2. Draft the skill SKILL.md with all three modes (`init`, `update`, `explain`)
 3. Test on a second codebase (not jsed) to validate generalizability
+4. Design the AGENTS.md routing pattern for workspaces with multiple packages

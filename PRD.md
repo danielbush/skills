@@ -27,9 +27,9 @@ These ideas are not scoped to one repo. A human managing multiple systems needs 
 
 ## Current work streams
 
-See [TODO.md](TODO.md) for specifics. Four active threads:
+See `specs/active/` for current work and [`specs/BACKLOG.md`](specs/BACKLOG.md) for the prioritised queue. Four active threads:
 
 1. **Shared understanding** — generalize the vocab + architecture narrative pattern
 2. **Design patterns** — separate principles (CLAUDE.md) from workflows (skills)
 3. **Specs system** — generalize /summarize and /remember across projects
-4. **Collaboration framework** — standard project files (AGENTS.md, PRD.md, SESSIONS.md, TODO.md) for session continuity
+4. **Collaboration framework** — standard project files (AGENTS.md, PRD.md, SESSIONS.md, specs/) for session continuity

@@ -2,21 +2,34 @@
 
 This repo explores the human-agent interface for managing code and technical systems. It contains skills, specs, and design artifacts.
 
-## Continuing a session
+## Central themes
 
-When the human says "let's continue" or similar:
+The work in this repo is driven by four themes, described fully in [`specs/discussion/discussion-driven-development.md`](specs/discussion/discussion-driven-development.md):
 
-1. Read the last entry in [SESSIONS.md](SESSIONS.md)
-2. Read [TODO.md](TODO.md)
-3. Summarize where we left off and what's next
-4. Ask which thread to pick up (if multiple are active)
+1. **Shared understanding** — vocabulary, architecture narratives, and orientation that enable compressed human-agent communication
+2. **Design patterns** — encoded patterns (like nullables) the agent can unpack from short instructions into concrete changes
+3. **Institutional memory** — preserving the *why* behind decisions so neither side contradicts past reasoning
+4. **Project collaboration framework** — standard artifacts (AGENTS.md, PRD.md, SESSIONS.md, specs/) that bridge sessions and give structure
+
+These themes connect through a meta-idea: humans and agents both work well at high compression, but only when there's shared vocabulary, encoded patterns, and memory of why.
+
+## Starting a session
+
+When the human starts a new conversation (greeting, "hello", "let's continue", or similar), offer these options:
+
+1. **Continue where we left off?** — read the last entry in [SESSIONS.md](SESSIONS.md) and scan `specs/active/` and `specs/discussion/` to summarise current state and ask which thread to pick up
+2. **Review the backlog?** — scan [`specs/BACKLOG.md`](specs/BACKLOG.md) (`grep -A 3 "^## "` for quick index)
+3. **Go over the major themes and higher-order motivations?** — read [`specs/discussion/discussion-driven-development.md`](specs/discussion/discussion-driven-development.md) and walk through it
+
+When continuing, always read `specs/active/` and `specs/discussion/` to orient.
 
 ## How to orient
 
 - [PRD.md](PRD.md) — where we're going (goals, north star)
-- [TODO.md](TODO.md) — what's in flight right now
 - [SESSIONS.md](SESSIONS.md) — what happened recently
-- [specs/](specs/) — why things were done (decisions, reasoning, discussion)
+- [specs/active/](specs/active/) — work in progress (active specs)
+- [specs/discussion/](specs/discussion/) — ideas and reasoning being explored
+- [specs/BACKLOG.md](specs/BACKLOG.md) — prioritised backlog (`grep -A 3 "^## "` for quick index)
 
 ## Memory model
 
