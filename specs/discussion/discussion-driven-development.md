@@ -6,6 +6,10 @@ summary: Four-theme framework for human-agent collaboration — shared understan
 
 # Discussion-Driven Development
 
+## North star
+
+Explore and build tooling for the divide between human and agent in code and system design — where the human steers and the agent implements, but both need to stay aligned.
+
 ## The Meta-Idea
 
 Humans and agents both work well at high compression. A human says "make this nullable" or "SPLIT_BY_TOKEN after the CURSOR" and the agent can unpack that into dozens of concrete code changes. But this only works if:
