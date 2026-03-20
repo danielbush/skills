@@ -5,7 +5,10 @@
       "WebFetch(domain:www.jamesshore.com)",
       "Bash(uv run:*)",
       "Bash(ln -s ../../../docs/vocabulary.md skills/nullables-refactor/references/vocabulary.md)",
-      "Bash(ln -s ../../../docs/vocabulary.md skills/nullables-test/references/vocabulary.md)"
+      "Bash(ln -s ../../../docs/vocabulary.md skills/nullables-test/references/vocabulary.md)",
+      "WebSearch",
+      "WebFetch(domain:mikhail.io)",
+      "WebFetch(domain:scottspence.com)"
     ]
   }
 }

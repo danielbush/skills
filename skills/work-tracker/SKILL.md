@@ -1,11 +1,11 @@
 ---
 name: work-tracker
-description: "Create and manage work items, tickets, and tracking artifacts in a project's work/ directory. Use when the human wants to create a ticket, track work, log a decision, review the backlog, move items between statuses, or scan what's in flight. Triggers on phrases like: 'create a ticket', 'let's track this', 'create a work item', 'what's in the backlog', 'what's active', 'move this to done'. Bootstraps the work/ directory structure on first use if it doesn't exist."
+description: "Create and manage work items, tickets, and tracking artifacts in a project's work/ directory. Also summarises sessions and searches past work. Use when the human wants to create a ticket, track work, log a decision, review the backlog, move items between statuses, scan what's in flight, summarise what was done in a session, or recall past work and decisions. Triggers on phrases like: 'create a ticket', 'let's track this', 'create a work item', 'what's in the backlog', 'what's active', 'move this to done', 'summarise this session', 'write up what we did', 'remember when we...', 'what did we do with...'. Bootstraps the work/ directory structure on first use if it doesn't exist."
 ---
 
 # Work Tracker
 
-Create and manage work items in a project's `work/` directory.
+Create and manage work items in a project's `work/` directory. Also summarises sessions and searches past work. Sits on top of the project's vocabulary and architecture (in `docs/`) — work-tracker handles what you were doing recently and last time, what was on your mind, and what was bothering you. The vocabulary and architecture layer handles what the project is about and how it works.
 
 ## Bootstrap
 
@@ -123,6 +123,31 @@ When the human says "what's active", "what's in flight", "show me the backlog", 
 ### Cross-referencing
 
 Items can reference each other by id (e.g. "relates to SHARED_UNDERSTANDING__WORK"). When creating an item that relates to another, mention the id in the body. Don't over-formalise this — a mention is enough.
+
+### Summarise a session
+
+When the human says "summarise this session", "write up what we did", "capture this", or at the end of a session:
+
+1. Create or update a work item in `work/active/` for the session's work. Use the naming convention: `YYYYMMDD.<type>.<topic>.md`.
+2. If a file already exists for this session (same date and topic), update it rather than creating a new one. Append new changes and decisions, update the summary. Don't duplicate content already captured.
+3. Structure the body with two sections:
+
+**Changes** — focus on conceptual changes, not implementation details. Group by theme, not by file. Use vocabulary terms (UPPER_SNAKE_CASE) from the project's `docs/vocabulary.md` when they apply.
+
+**Decisions** — record design decisions and the *why* behind them. These are the things that would be lost between sessions: motivation, rejected alternatives, non-obvious reasoning.
+
+4. The frontmatter `summary:` is the most important line — optimise it for scanning by a future reader (human or agent) skimming `work/` to find relevant context.
+5. Keep it concise — a summary should be shorter than the conversation that produced it. Focus on decisions and the why; the what is in the code.
+
+### Search past work
+
+When the human says "remember when we...", "what did we do with...", or asks about previous sessions, past decisions, or earlier implementations:
+
+1. Glob for files across `work/done/`, `work/active/`, and `work/BACKLOG.md`.
+2. Match the query against filenames first (fast path) — the filename scheme encodes type and topic.
+3. If filename matches are found, read their frontmatter summaries. Present matches with status, date, and summary so the human can pick which to dive into.
+4. If no filename matches, grep the files for the query term in their content, including vocabulary terms (UPPER_SNAKE_CASE).
+5. Only read the full body if the human asks to go deeper. If multiple matches, list them and let the human choose.
 
 ## Conventions
 
