@@ -6,6 +6,17 @@ Grep-friendly: `grep -A 3 "^## " work/BACKLOG.md` gives a quick index.
 
 ---
 
+## feat: Architecture narrative skill
+- id: ARCHITECTURE_NARRATIVE
+- drafted: 2026-03-20
+- summary: Port the story-telling approach to explaining architecture — how a system is structured, told as a narrative a human can follow
+
+The jsed project has a working example of this: the AGENTS.md (`/Users/danb/projects/@oneput/packages/jsed/AGENTS.md`) contains the process/approach — how the narrative is built up — and `docs/architecture.md` (`/Users/danb/projects/@oneput/packages/jsed/docs/architecture.md`) is the result — a bottom-up story where each section depends only on what came before.
+
+The skill (or convention) should help an agent produce and maintain an architecture narrative for any codebase. Key aspects to port: the story-telling structure, the bottom-up dependency ordering, the connection to vocabulary terms, and how it serves as orientation for humans returning to the codebase.
+
+Relates to: SHARED_UNDERSTANDING, ENTRY_POINT_QUESTIONS
+
 ## feat: Entry-point questions
 - id: ENTRY_POINT_QUESTIONS
 - drafted: 2026-03-20
