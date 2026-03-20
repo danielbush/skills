@@ -49,7 +49,7 @@ Body text — the initial proposal, plan, or discussion.
 
 ### Fields
 
-- **id** — short, unique, UPPER_SNAKE_CASE. Used for cross-referencing between items (e.g. "see SHARED_UNDERSTANDING"). Keep it descriptive but brief.
+- **id** — short, unique, UPPER_SNAKE_CASE with `__WORK` suffix (double underscore to visually separate). Used for cross-referencing between items (e.g. "see SHARED_UNDERSTANDING__WORK"). Keep it descriptive but brief.
 - **status** — matches the directory it lives in: `active` or `done`
 - **created** — date the item was created
 - **summary** — one line, used for scanning
@@ -108,7 +108,7 @@ When the human says "what's active", "what's in flight", "show me the backlog", 
 
 ### Cross-referencing
 
-Items can reference each other by id (e.g. "relates to SHARED_UNDERSTANDING"). When creating an item that relates to another, mention the id in the body. Don't over-formalise this — a mention is enough.
+Items can reference each other by id (e.g. "relates to SHARED_UNDERSTANDING__WORK"). When creating an item that relates to another, mention the id in the body. Don't over-formalise this — a mention is enough.
 
 ## Conventions
 

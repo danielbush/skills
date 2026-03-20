@@ -1,6 +1,6 @@
 ---
 status: active
-id: NULLABLES_SKILLS
+id: NULLABLES_SKILLS__WORK
 created: 2026-03-18
 summary: All work related to /nullables-refactor, /nullables-test, and /explain-nullables skills
 parent: ../../docs/discussion-driven-development.md
