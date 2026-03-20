@@ -4,7 +4,9 @@ This repo explores the human-agent interface for managing code and technical sys
 
 ## Central themes
 
-The work in this repo is driven by four themes, described fully in [`work/discussion/discussion-driven-development.md`](work/discussion/discussion-driven-development.md):
+Strategic and thematic thinking lives in `work/discussion/`. This is where human and agent sharpen their understanding about what they're doing — not tickets or deliverables, but the ongoing process that produces vocabulary, architecture, and principles over time.
+
+The core themes driving this repo are described fully in [`work/discussion/discussion-driven-development.md`](work/discussion/discussion-driven-development.md):
 
 1. **Shared understanding** — vocabulary, architecture narratives, and orientation that enable compressed human-agent communication
 2. **Design patterns** — encoded patterns (like nullables) the agent can unpack from short instructions into concrete changes
@@ -12,6 +14,8 @@ The work in this repo is driven by four themes, described fully in [`work/discus
 4. **Project collaboration framework** — standard artifacts (AGENTS.md, PRD.md, SESSIONS.md, work/) that bridge sessions and give structure
 
 These themes connect through a meta-idea: humans and agents both work well at high compression, but only when there's shared vocabulary, encoded patterns, and memory of why.
+
+See also [`work/discussion/20260320.chore.knowledge-layers.md`](work/discussion/20260320.chore.knowledge-layers.md) for how different kinds of knowledge (world-building, skills, strategic thinking) relate to each other.
 
 ## Starting a session
 
@@ -25,11 +29,10 @@ When continuing, always read `work/active/` and `work/discussion/` to orient.
 
 ## How to orient
 
-- [PRD.md](PRD.md) — where we're going (goals, north star)
 - [SESSIONS.md](SESSIONS.md) — what happened recently
-- [work/active/](work/active/) — work in progress (active specs)
-- [work/discussion/](work/discussion/) — ideas and reasoning being explored
-- [work/BACKLOG.md](work/BACKLOG.md) — prioritised backlog (`grep -A 3 "^## "` for quick index)
+- [work/discussion/](work/discussion/) — strategic thinking, thematic sharpening, evolving understanding
+- [work/active/](work/active/) — work in progress, being delivered
+- [work/BACKLOG.md](work/BACKLOG.md) — quick sketches of future work, prioritised (`grep -A 3 "^## "` for quick index)
 
 ## Memory model
 
