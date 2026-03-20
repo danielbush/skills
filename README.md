@@ -9,6 +9,7 @@ To add to a project:
 ```sh
 bunx skills add danielbush/skills --agent claude-code --skill nullables-refactor
 bunx skills add danielbush/skills --agent claude-code --skill nullables-test
+bunx skills add danielbush/skills --agent claude-code --skill work-tracker
 ```
 
 ### `nullables-refactor`
