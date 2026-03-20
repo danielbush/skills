@@ -36,7 +36,7 @@ Each work item is a markdown file with frontmatter:
 
 ```markdown
 ---
-id: SHORT_UPPER_SNAKE_CASE_ID
+id: SHORT_UPPER_SNAKE_CASE__WORK
 status: active | done
 created: YYYY-MM-DD
 summary: one-line summary
@@ -45,6 +45,20 @@ summary: one-line summary
 # type: Title
 
 Body text — the initial proposal, plan, or discussion.
+
+## Status
+
+Where we're at right now. Update this as work progresses — it should reflect the current state at a glance. Recent progress may be implied by items marked off below.
+
+## Tasks
+
+- [ ] First thing to do
+- [ ] Second thing to do
+- [x] Already done
+
+## Housekeeping
+
+Optional. Things to do in addition to the main work — cleanup, follow-ups, related chores that don't warrant their own ticket.
 ```
 
 ### Fields
