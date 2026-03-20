@@ -50,9 +50,9 @@ AGENTS.md is the "always-on" layer, skills are the "on-demand" layer. Same idea 
   CLAUDE.md        → points to AGENTS.md (no longer a symlink)
   AGENTS.md        → how to work here, memory model, vocab preference
   PRD.md           → north star: human-agent interface, compression + grounding
-  TODO.md          → four active work streams with links to specs
-  SESSIONS.md      → this session logged as the first entry
-  specs/
-    discussion/    → big picture + old PRD
-    active/        → four actionable specs (including the framework itself)
+  SESSIONS.md      → session log, enables "let's continue"
+  work/
+    BACKLOG.md     → prioritised backlog (grep-friendly)
+    discussion/    → big picture, themes, motivations
+    active/        → current work items
 ```

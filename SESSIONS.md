@@ -4,12 +4,12 @@
 
 ### What happened
 
-- Started from rough notes in `specs/active/discussion-driven-development.md` about vocab, architecture, and nullable skills
+- Started from rough notes in `work/active/discussion-driven-development.md` about vocab, architecture, and nullable skills
 - Unpacked into four themes: shared understanding, design patterns, institutional memory, project collaboration framework
 - Identified higher-order motivations: keeping the human technically engaged, grounding through examples, the graph future, vocabulary as agent-internal language that surfaces when helpful (configurable to always-on)
-- Wrote discussion spec (`specs/discussion/discussion-driven-development.md`) capturing the full picture
-- Broke into four actionable specs in `specs/active/`
-- Absorbed old PRD.md → `specs/discussion/architecture-skills-prd.md`, old TODO.md into design-patterns spec
+- Wrote discussion spec (`work/discussion/discussion-driven-development.md`) capturing the full picture
+- Broke into four actionable specs in `work/active/`
+- Absorbed old PRD.md → `work/discussion/architecture-skills-prd.md`, old TODO.md into design-patterns spec
 - Applied the collaboration framework to this repo itself: AGENTS.md, PRD.md, TODO.md, SESSIONS.md
 - Noted memory model: context (short) → SESSIONS.md (short-to-mid) → specs (mid-to-long) → vocab/architecture/principles (long-term)
 
@@ -68,9 +68,9 @@
 - Discussed entry-point questions — FAQ-style "doors into" a system on top of vocabulary + architecture narrative
 - Added mcporter skill, opensrc skill, spec scanner skill, pi harness exploration to backlog
 - Discussed AGENTS.md routing for automatic orientation (hardwire into per-package AGENTS.md instead of requiring skill invocation)
-- Created `specs/BACKLOG.md` with grep-friendly format (`grep -A 3 "^## "` for quick index)
-- Consolidated all nullables work into single active spec `specs/active/nullables-skills.md`
-- Removed TODO.md; active work now lives in `specs/active/`, backlog in `specs/BACKLOG.md`
+- Created `work/BACKLOG.md` with grep-friendly format (`grep -A 3 "^## "` for quick index)
+- Consolidated all nullables work into single active spec `work/active/nullables-skills.md`
+- Removed TODO.md; active work now lives in `work/active/`, backlog in `work/BACKLOG.md`
 - Reworked "Continuing a session" → "Starting a session" in CLAUDE.md — agent now prompts human with 3 options
 - Merged PRD.md content into discussion spec; PRD.md is now a 3-line pointer
 

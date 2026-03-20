@@ -2,7 +2,7 @@
 
 Items near the top get worked on first. Each item is an initial draft — improve wording and break out into individual spec files when ready to work on.
 
-Grep-friendly: `grep -A 3 "^## " specs/BACKLOG.md` gives a quick index.
+Grep-friendly: `grep -A 3 "^## " work/BACKLOG.md` gives a quick index.
 
 ---
 

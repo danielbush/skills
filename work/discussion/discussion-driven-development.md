@@ -125,7 +125,7 @@ They're all about making code **easier to test** (no mocks, fast, reliable) and 
 
 ### What exists (oneput as the reference implementation)
 
-- **Spec files** (`specs/done/`, `specs/active/`, `specs/discussion/`) — session summaries with frontmatter, organized by status. Each captures *changes* and *decisions* (especially the *why*).
+- **Spec files** (`work/done/`, `work/active/`, `work/discussion/`) — session summaries with frontmatter, organized by status. Each captures *changes* and *decisions* (especially the *why*).
 - **/summarize** skill — writes a spec at end of session, capturing what was done and why.
 - **/remember** skill — searches specs to recall past work, decisions, context.
 
@@ -135,7 +135,7 @@ Agent context resets between sessions. Specs are the persistent memory of *reaso
 
 ### Reference implementations
 
-- Spec files: `/Users/danb/projects/@oneput/specs/`
+- Spec files: `/Users/danb/projects/@oneput/work/`
 - Summarize skill: `/Users/danb/projects/@oneput/.agents/skills/summarize/SKILL.md`
 - Remember skill: `/Users/danb/projects/@oneput/.agents/skills/remember/SKILL.md`
 
@@ -151,7 +151,7 @@ Beyond the specs system, there's a broader set of project files that together gi
 | **PRD.md** | Where are we going — overarching goals that steer both human and agent |
 | **SESSIONS.md** | What happened — session log, enables "let's continue" |
 | **TODO.md** | What's in flight — current tasks with progress |
-| **specs/** | Why we did it — decisions and reasoning (searched on demand) |
+| **work/** | Why we did it — decisions and reasoning (searched on demand) |
 
 The key insight: these files serve different time horizons. AGENTS.md rarely changes (constitution). PRD.md evolves with goals. TODO.md changes daily. SESSIONS.md is append-only. Specs are the permanent archive. Together they let a human start a session with "let's continue" and the agent is fully oriented.
 

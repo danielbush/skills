@@ -1,3 +1,3 @@
 # PRD
 
-See [`specs/discussion/discussion-driven-development.md`](specs/discussion/discussion-driven-development.md) for goals, themes, and motivations. See `specs/active/` for current work and [`specs/BACKLOG.md`](specs/BACKLOG.md) for the prioritised queue.
+See [`work/discussion/discussion-driven-development.md`](work/discussion/discussion-driven-development.md) for goals, themes, and motivations. See `work/active/` for current work and [`work/BACKLOG.md`](work/BACKLOG.md) for the prioritised queue.
