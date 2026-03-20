@@ -35,12 +35,12 @@ Examples: the four central themes, the meta-idea about compression, the higher-o
 |---|---|---|
 | World-building | `docs/`, AGENTS.md | Settled, ambient, loaded on demand |
 | Skills | `skills/` (this repo) | Portable, installed into projects |
-| Strategic thinking | `work/discussion/` | Evolving, not actionable, sharpens over time |
+| Strategic thinking | `docs/` | Evolving, sharpens over time, long-term |
 | Backlog | `work/BACKLOG.md` | Quick sketches, prioritised future work |
 | Active work | `work/active/` | In progress, being delivered |
 
 ## Open questions
 
-- Is `work/discussion/` the right home for strategic thinking, or does it deserve its own place (e.g. `thinking/`, `docs/thinking/`)? Current lean: discussion is broad enough — it covers both "exploring a feature idea" and "strategic sharpening." The directory name already implies it's not actionable yet.
-- How does strategic thinking relate to SESSIONS.md? Sessions capture *what happened*; discussions capture *what we're figuring out*. They're complementary — a session might advance a discussion.
-- When does a discussion become docs? When the thinking crystallises into vocabulary or architecture, it gets extracted into `docs/` and the discussion stays as the record of how we got there.
+- **Resolved**: strategic thinking lives in `docs/` alongside vocabulary and other long-term artifacts. `work/` is for actionable items only (active work + backlog).
+- How does strategic thinking relate to SESSIONS.md? Sessions capture *what happened*; docs capture *what we're figuring out* and *what we've figured out*. They're complementary — a session might advance a theme doc.
+- Themes and strategic docs evolve in place — they don't move between directories like work items do.

@@ -74,3 +74,10 @@ Look at `/Users/danb/projects/@oneput/.agents/skills/remember`, `summarize`, `sy
 - summary: Extract jsed orientation skill into a generalized skill in this repo
 
 Relates to SHARED_UNDERSTANDING. `/Users/danb/projects/@oneput/.agents/skills/jsed` → new generalized skill here.
+
+## chore: Architecture skills PRD
+- id: ARCH_SKILLS_PRD
+- drafted: 2026-03-07
+- summary: Original exploration of architectural principles as always-on (CLAUDE.md) vs actionable workflows (skills)
+
+Identifies the two-layer approach: Layer 1 is CLAUDE.md principles (A-Frame, deep modules, consumer-defined interfaces, value objects, error mapping), Layer 2 is on-demand skills (nullables). Previously at `work/discussion/architecture-skills-prd.md`. Relates to DESIGN_PATTERNS.

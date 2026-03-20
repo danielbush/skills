@@ -1,6 +1,6 @@
 ---
 name: work-tracker
-description: "Create and manage work items, tickets, and tracking artifacts in a project's work/ directory. Use when the human wants to create a ticket, track work, log a decision, start a discussion, review the backlog, move items between statuses, or scan what's in flight. Triggers on phrases like: 'create a ticket', 'let's track this', 'create a work item', 'what's in the backlog', 'what's active', 'move this to done', 'let's discuss this'. Bootstraps the work/ directory structure on first use if it doesn't exist."
+description: "Create and manage work items, tickets, and tracking artifacts in a project's work/ directory. Use when the human wants to create a ticket, track work, log a decision, review the backlog, move items between statuses, or scan what's in flight. Triggers on phrases like: 'create a ticket', 'let's track this', 'create a work item', 'what's in the backlog', 'what's active', 'move this to done'. Bootstraps the work/ directory structure on first use if it doesn't exist."
 ---
 
 # Work Tracker
@@ -14,7 +14,6 @@ If `work/` doesn't exist in the project root, create the full structure before d
 ```
 work/
   active/       → items being worked on
-  discussion/   → ideas, explorations, things not yet actionable
   done/         → completed items (moved here, not deleted)
   BACKLOG.md    → prioritised queue of future work
 ```
@@ -38,7 +37,7 @@ Each work item is a markdown file with frontmatter:
 ```markdown
 ---
 id: SHORT_UPPER_SNAKE_CASE_ID
-status: active | discussion | done
+status: active | done
 created: YYYY-MM-DD
 summary: one-line summary
 ---
@@ -51,7 +50,7 @@ Body text — the initial proposal, plan, or discussion.
 ### Fields
 
 - **id** — short, unique, UPPER_SNAKE_CASE. Used for cross-referencing between items (e.g. "see SHARED_UNDERSTANDING"). Keep it descriptive but brief.
-- **status** — matches the directory it lives in: `active`, `discussion`, or `done`
+- **status** — matches the directory it lives in: `active` or `done`
 - **created** — date the item was created
 - **summary** — one line, used for scanning
 
@@ -75,10 +74,9 @@ In a monorepo with packages, add the package name: `YYYYMMDD.<package>.<type>.<s
 
 When the human says "create a ticket", "let's track this", "create a work item", or similar:
 
-1. Ask (briefly) what status — **active** (ready to work on) or **discussion** (exploring, not yet actionable). Default to active if unclear.
+1. If it's future work (not something to start now), add it to `work/BACKLOG.md` as an h2 entry with the grep-friendly fields (see below). Otherwise, create a file in `work/active/`.
 2. Draft the item with frontmatter, a title, and body from what the human described.
-3. Write it to `work/<status>/` with the naming convention.
-4. If it belongs in the backlog instead (it's future work, not something to start now), add it as an h2 entry in `work/BACKLOG.md` with the grep-friendly fields:
+3. If it belongs in the backlog:
 
 ```markdown
 ## type: Title
@@ -91,14 +89,14 @@ Body text.
 
 ### Move an item
 
-When the human says "this is done", "move to discussion", "promote this to active", or similar:
+When the human says "this is done", "promote this to active", or similar:
 
 1. Update the `status:` in frontmatter
-2. Move the file to the matching directory (`work/active/`, `work/discussion/`, or `work/done/`)
+2. Move the file to the matching directory (`work/active/` or `work/done/`)
 
-When promoting a backlog item to active/discussion:
+When promoting a backlog item to active:
 1. Remove it from `work/BACKLOG.md`
-2. Create a file in the appropriate directory
+2. Create a file in `work/active/`
 
 ### Scan / review
 
@@ -106,7 +104,7 @@ When the human says "what's active", "what's in flight", "show me the backlog", 
 
 - **Active items**: list files in `work/active/`, show id + summary from frontmatter
 - **Backlog**: run `grep -A 3 "^## " work/BACKLOG.md` for the quick index
-- **All statuses**: scan all three directories
+- **All statuses**: scan both directories
 
 ### Cross-referencing
 

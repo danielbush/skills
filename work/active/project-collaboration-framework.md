@@ -2,7 +2,7 @@
 status: active
 created: 2026-03-17
 summary: Define a standard set of project files (AGENTS.md, PRD.md, SESSIONS.md, TODO.md, work/) that together give an agent full continuity across sessions and alignment with the human on goals, principles, progress, and reasoning
-parent: ../discussion/discussion-driven-development.md
+parent: ../../docs/discussion-driven-development.md
 theme: "Way of Working"
 ---
 

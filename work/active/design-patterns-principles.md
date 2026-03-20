@@ -2,7 +2,7 @@
 status: active
 created: 2026-03-17
 summary: Decide where each design pattern lives (CLAUDE.md principle vs skill workflow) and draft the CLAUDE.md principles section for deep modules, DI/IoC, consumer-defined interfaces
-parent: ../discussion/discussion-driven-development.md
+parent: ../../docs/discussion-driven-development.md
 theme: "Theme 2: Design Patterns"
 ---
 
@@ -29,6 +29,6 @@ Separate the design patterns into two layers and write the "always-on" layer.
 ## Next steps
 
 1. **Extract named concepts from nullables algorithm** — walk through `skills/nullables/SKILL.md` lines 75-158, identify each distinct pattern as an UPPER_SNAKE_CASE entity (DUAL_FACTORY, DELAYED_INSTANTIATION, FACTORY_OBJECT, etc.), build a concept index with pointers back to the algorithm. Let concepts emerge rather than forcing a taxonomy.
-2. Draft ~40-line Architectural Principles section for CLAUDE.md (earlier PRD has a good starting draft — see `work/discussion/architecture-skills-prd.md`)
+2. Draft ~40-line Architectural Principles section for CLAUDE.md (earlier PRD has a good starting draft — see ARCH_SKILLS_PRD in work/BACKLOG.md)
 3. Clarify the DI/IoC/effect-ts boundary in a short discussion
 4. Update nullables SKILL.md to reference the principles by name

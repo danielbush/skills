@@ -2,7 +2,7 @@
 status: active
 created: 2026-03-17
 summary: Extract the work/summarize/remember system from oneput into a general-purpose skill set that works across projects
-parent: ../discussion/discussion-driven-development.md
+parent: ../../docs/discussion-driven-development.md
 theme: "Theme 3: Institutional Memory"
 ---
 

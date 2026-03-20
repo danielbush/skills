@@ -3,7 +3,7 @@ status: active
 id: NULLABLES_SKILLS
 created: 2026-03-18
 summary: All work related to /nullables-refactor, /nullables-test, and /explain-nullables skills
-parent: ../discussion/discussion-driven-development.md
+parent: ../../docs/discussion-driven-development.md
 theme: "Theme 2: Design Patterns"
 ---
 
