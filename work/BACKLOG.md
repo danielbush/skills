@@ -56,6 +56,13 @@ Agent should proactively use `npx opensrc <package>` to download and read import
 
 Framework from https://github.com/badlogic/pi-mono (also used in openclaw). Interested in both coding workflows and non-coding flows for managing whole systems (devops).
 
+## chore: Explore jdocmunch-mcp
+- id: JDOCMUNCH__WORK
+- drafted: 2026-03-20
+- summary: Understand what jdocmunch-mcp does and whether it can index md files (work/, docs/) and vocab terms
+
+Investigate jdocmunch-mcp — what it does generally, and specifically: can it index all markdown files including `work/` and `docs/`? Can it index on vocabulary terms (UPPER_SNAKE_CASE) at all? Could be useful for searching across work items, themes, and vocabulary. Also explore using mcporter (MCPORTER__WORK) to interact with it without loading the full MCP into context.
+
 ## chore: Vocabulary pass (broader)
 - id: VOCAB_BROADER__WORK
 - drafted: 2026-03-18
