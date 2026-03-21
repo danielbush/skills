@@ -1,7 +1,7 @@
 ---
 status: discussion
 created: 2026-03-17
-summary: Four-theme framework for human-agent collaboration — shared understanding, design patterns, institutional memory, and a project collaboration framework (AGENTS.md, PRD.md, SESSIONS.md, TODO.md) — connected by the insight that humans and agents both work well at high compression
+summary: "Four themes — shared understanding, design patterns, institutional memory, project collaboration — connected by: humans and agents both work well at high compression, but only when there's shared vocabulary, encoded patterns, and memory of why. Overlapping memory/context management to create agents that know what you were doing, what was on your mind, and what the project is about."
 ---
 
 # Discussion-Driven Development

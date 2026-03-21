@@ -2,30 +2,27 @@
 
 This repo explores the human-agent interface for managing code and technical systems. It contains skills, work artifacts, and design documents.
 
-## Central themes
+## Purpose
 
-Strategic and thematic thinking lives in `docs/`. This is where human and agent sharpen their understanding about what they're doing — not tickets or deliverables, but the ongoing process that produces vocabulary, architecture, and principles over time.
+This repo is about overlapping memory and context management to create agents that know what you were doing recently and last time, what was on your mind, what was bothering you, and what the project is about and how it works.
 
-The core themes driving this repo are described fully in [`docs/discussion-driven-development.md`](docs/discussion-driven-development.md):
+The themes and thinking behind this live in `docs/`:
 
-1. **Shared understanding** — vocabulary, architecture narratives, and orientation that enable compressed human-agent communication
-2. **Design patterns** — encoded patterns (like nullables) the agent can unpack from short instructions into concrete changes
-3. **Institutional memory** — preserving the *why* behind decisions so neither side contradicts past reasoning
-4. **Project collaboration framework** — standard artifacts (AGENTS.md, .sessions/, work/, docs/) that bridge sessions and give structure
+- [`docs/discussion-driven-development.md`](docs/discussion-driven-development.md) — the four central themes (shared understanding, design patterns, institutional memory, project collaboration) and the higher-order motivations behind them
+- [`docs/themes.md`](docs/themes.md) — how different layers of knowledge (world-building, skills, strategic thinking) relate to each other
 
-These themes connect through a meta-idea: humans and agents both work well at high compression, but only when there's shared vocabulary, encoded patterns, and memory of why.
-
-Put another way: overlapping memory and context management to create agents that know what you were doing recently and last time, what was on your mind, what was bothering you, and what the project is about and how it works.
-
-See also [`docs/themes.md`](docs/themes.md) for how different kinds of knowledge (world-building, skills, strategic thinking) relate to each other.
+At session start, remind the human what this repo is about and invite them to dive into the themes if they want to revisit.
 
 ## Starting a session
 
-When the human starts a new conversation (greeting, "hello", "let's continue", or similar), offer these options:
+When the human starts a new conversation (greeting, "hello", "let's continue", or similar):
 
-1. **Continue where we left off?** — read the last entry in `.sessions/$USER.md` and scan `work/active/` to summarise current state (last session's feel + factual work progress) and ask which thread to pick up
-2. **Review the backlog?** — scan [`work/BACKLOG.md`](work/BACKLOG.md) (`grep -A 3 "^## "` for quick index)
-3. **Go over the major themes and higher-order motivations?** — read [`docs/discussion-driven-development.md`](docs/discussion-driven-development.md) and walk through it
+1. Briefly remind them what this repo is about (use the purpose statement above).
+2. Read the `summary:` frontmatter from `docs/discussion-driven-development.md` and `docs/themes.md` — use these to ground the reminder without reading the full files.
+3. Offer these options:
+   - **Continue where we left off?** — read the last entry in `.sessions/$USER.md` and scan `work/active/` to summarise current state (last session's feel + factual work progress) and ask which thread to pick up
+   - **Review the backlog?** — scan [`work/BACKLOG.md`](work/BACKLOG.md) (`grep -A 3 "^## "` for quick index)
+   - **Dive into the themes?** — read the full `docs/discussion-driven-development.md` and/or `docs/themes.md` and walk through them
 
 When continuing, always read `.sessions/$USER.md` (last entry) and `work/active/` to orient.
 

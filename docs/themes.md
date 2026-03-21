@@ -2,7 +2,7 @@
 id: KNOWLEDGE_LAYERS
 status: discussion
 created: 2026-03-20
-summary: Understanding the different layers of knowledge — world-building vs skills vs strategic thinking — and where each lives
+summary: "Three knowledge layers: world-building (vocab, architecture — ambient, project-bound, in docs/), skills (portable, activated, project-independent), strategic thinking (the sharpening process that produces the other two, also in docs/)."
 ---
 
 # chore: Knowledge layers
