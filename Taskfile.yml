@@ -21,6 +21,34 @@ tasks:
 
     silent: true
 
+  skills:add:local:
+    desc: Symlink a local skill from skills/ into .claude/skills/ and .agents/skills/
+    summary: |
+      Usage: task skills:add:local -- work-tracker
+      Creates symlinks in .claude/skills/ and .agents/skills/ pointing to skills/<name>.
+    cmds:
+      - |
+        if [ ! -d "skills/{{.CLI_ARGS}}" ]; then
+          echo "Skill '{{.CLI_ARGS}}' not found in skills/"
+          exit 1
+        fi
+        mkdir -p .claude/skills .agents/skills
+        ln -sfn ../../skills/{{.CLI_ARGS}} .claude/skills/{{.CLI_ARGS}}
+        ln -sfn ../../skills/{{.CLI_ARGS}} .agents/skills/{{.CLI_ARGS}}
+        echo "Linked {{.CLI_ARGS}} → skills/{{.CLI_ARGS}} in .claude/skills/ and .agents/skills/"
+    silent: true
+
+  skills:remove:local:
+    desc: Remove a local skill symlink from .claude/skills/ and .agents/skills/
+    summary: |
+      Usage: task skills:remove:local -- work-tracker
+      Removes symlinks only — does not delete the skill source in skills/.
+    cmds:
+      - |
+        rm -f .claude/skills/{{.CLI_ARGS}} .agents/skills/{{.CLI_ARGS}}
+        echo "Removed {{.CLI_ARGS}} from .claude/skills/ and .agents/skills/"
+    silent: true
+
   skills:validate:
     desc: Validate skills
     summary: |
