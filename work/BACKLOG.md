@@ -6,6 +6,42 @@ Grep-friendly: `grep -A 3 "^## " work/BACKLOG.md` gives a quick index.
 
 ---
 
+## feat: Research tool skill
+- id: RESEARCH_TOOL__WORK
+- drafted: 2026-03-22
+- summary: Skill for researching topics using web search, papers, and content extraction — with small subagents (haiku, gpt-5.4-mini) for processing
+
+Build a research skill that can go through content and identify relevant things. Key inputs and references:
+
+- **Maximilian's video**: on Pi Agentic harness https://youtu.be/wVe3XOnio7M?si=X18pLWiFdyYQlK9- — I have a screenshot somewhere
+- **Small subagents**: use mini/small models (haiku, gpt-5.4-mini) to process and filter content cheaply
+- **Paper research**: marimo's implement-paper skill — https://github.com/marimo-team/skills/blob/main/skills/implement-paper/SKILL.md
+- **Search approaches**:
+  - Gemini may have built-in search — https://ai.google.dev/gemini-api/docs/google-search
+  - Check openclaw skills for how it does search
+- **Other tools**: firecrawl, perplexity — https://cline.bot/blog/5-tool-mcp-starter-pack-for-cline
+
+Relates to: PI_HARNESS__WORK, CODE_RESEARCH__WORK
+
+## feat: Code research tool skill
+- id: CODE_RESEARCH__WORK
+- drafted: 2026-03-22
+- summary: Skill for researching codebases and libraries — mcporter + deepwiki, opensrc + AI docs, small subagents for processing
+
+Tools for understanding unfamiliar code. Key approaches:
+
+- **Small subagents**: use mini/small models (haiku, gpt-5.4-mini) to go through content and identify things
+- **mcporter + deepwiki**: use mcporter to query deepwiki for repo-level understanding (relates to MCPORTER__WORK)
+- **opensrc**: proactively download and read important dependencies via `npx opensrc <package>` (supports `pypi:`, `crates:`, `owner/repo`). Use a subagent to find and surface relevant docs. Should be a natural part of agent workflow, not something the human has to prompt.
+- Relates to: RESEARCH_TOOL__WORK, MCPORTER__WORK
+
+## feat: YouTube transcript skill
+- id: YOUTUBE_TRANSCRIPT__WORK
+- drafted: 2026-03-22
+- summary: Skill to pull and process YouTube transcripts — check what openclaw does
+
+Extract transcripts from YouTube videos for processing. Investigate what openclaw's approach is. Useful for the research tool (RESEARCH_TOOL__WORK) when references are video content.
+
 ## chore: Rethink docs/ structure
 - id: DOCS_STRUCTURE__WORK
 - drafted: 2026-03-21
@@ -48,13 +84,6 @@ Scan the first few lines of spec files sorted by date for a fast "what's been ha
 Uses `npx -y mcporter list <server>` to discover tools and `npx -y mcporter call <server>.<tool>(<args>)` to invoke them. Example: `mcporter call deepwiki.ask_question(repoName: "owner/repo", question: "...")`.
 
 Reference: https://youtu.be/wVe3XOnio7M
-
-## feat: opensrc skill
-- id: OPENSRC__WORK
-- drafted: 2026-03-20
-- summary: Encourage agent to download important dependencies and read them proactively
-
-Agent should proactively use `npx opensrc <package>` to download and read important dependencies/references unless an up-to-date skill already covers it. Make this a natural part of the agent's workflow rather than something the human has to prompt.
 
 ## chore: Explore pi harness
 - id: PI_HARNESS__WORK
