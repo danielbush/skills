@@ -17,7 +17,7 @@ Covers the `/nullables-refactor`, `/nullables-test`, and `/explain-nullables` sk
 - [x] Ran evals on nullables-refactor: with-skill 95.8% vs without-skill 88.5% (4 fixtures, 26 assertions)
 - [x] Created `nullables-test` skill (`skills/nullables-test/SKILL.md`) — precondition checks, recursive nullability verification, illustrative test philosophy
 - [x] Clarified test instantiation: `new Foo(Bar.createNull())` when testing Foo itself vs `Foo.createNull()` when Foo is a dependency (confirmed per James Shore)
-- [x] Created `docs/vocabulary.md` — 15+ terms including HARDWIRED_INFRA, INJECTED_INFRA, CREATE_BOUNDARY_RULE, NULLABLE_CLASS
+- [x] Created `docs/vocab/coding.md` — 15+ terms including HARDWIRED_INFRA, INJECTED_INFRA, CREATE_BOUNDARY_RULE, NULLABLE_CLASS
 - [x] Vocabulary sharing via symlinks so both skills reference one source
 - [x] Moved original monolithic nullables skill to `sandbox/nullables-skill/`
 

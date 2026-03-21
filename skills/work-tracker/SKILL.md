@@ -193,7 +193,7 @@ When the human says "summarise this session", "write up what we did", "capture t
 - If no ticket exists for this work, create one in `work/active/`
 
 **2. Append to session log** — add an entry to `.sessions/$USER.md` with:
-- **What happened** — conceptual changes, grouped by theme. Use vocabulary terms (UPPER_SNAKE_CASE) from `docs/vocabulary.md` when they apply.
+- **What happened** — conceptual changes, grouped by theme. Use vocabulary terms (UPPER_SNAKE_CASE) from `docs/vocab/` when they apply.
 - **On my mind** — what the human was thinking about, concerned with, open questions. Capture the headspace, not just the deliverables.
 - **Open threads** — which work items are active and where they stand.
 

@@ -20,7 +20,7 @@ Analyzes a file and produces a refactoring plan. Classifies code by side-effect 
 
 Writes illustrative tests after refactoring. Checks preconditions (all HARDWIRED_INFRA replaced by INJECTED_INFRA, every dependency has `.createNull()`, recursive nullability down to the leaves), then writes narrow, sociable, state-based tests using `.createNull()`. Tests illustrate the system's concepts and architecture, not just coverage.
 
-See `docs/vocabulary.md` for the shared vocabulary these skills use.
+See `docs/vocab/coding.md` for the shared vocabulary these skills use.
 
 #### Eval suite
 

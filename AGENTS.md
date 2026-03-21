@@ -14,7 +14,7 @@ The themes and thinking behind this live in `docs/`:
 
 ## Vocabulary
 
-Use vocabulary terms (UPPER_SNAKE_CASE) from `docs/vocabulary.md` when they exist. Always use them in agent output — the human prefers the shared language to be "on" so both sides stay in the same conceptual frame.
+Vocabulary files live in `docs/vocab/`. Use vocabulary terms (UPPER_SNAKE_CASE) from the relevant vocab file when they exist. Always use them in agent output — the human prefers the shared language to be "on" so both sides stay in the same conceptual frame.
 
 ## Skills
 

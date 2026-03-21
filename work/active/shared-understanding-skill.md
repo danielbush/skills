@@ -13,7 +13,7 @@ Create a skill that helps human and agent build shared understanding of a codeba
 
 ## Artifacts to produce (per codebase)
 
-1. `docs/vocabulary.md` — UPPER_SNAKE_CASE domain terms
+1. `docs/vocab/` — UPPER_SNAKE_CASE domain terms (e.g. `coding.md` for nullables)
 2. `docs/architecture.md` — bottom-up narrative (each section depends only on what came before)
 3. AGENTS.md updates — point to the above, explain deep modules structure
 4. Orientation skill — reads the above in order, summarizes for a new session

@@ -17,7 +17,7 @@ These layers are how that's achieved.
 
 Vocabulary, architecture narrative, entry-point questions. This is institutional memory tied to a project, an entity. It's ambient — it evolves with the project and just the right parts are loaded into short-term memory (context) when needed to create continuity and maintain the "world."
 
-Lives *in* the project: `docs/vocabulary.md`, `docs/architecture.md`, AGENTS.md. Not portable — it *is* the project's identity.
+Lives *in* the project: `docs/vocab/`, `docs/architecture.md`, AGENTS.md. Not portable — it *is* the project's identity.
 
 ### Skills (portable, activated, project-independent)
 

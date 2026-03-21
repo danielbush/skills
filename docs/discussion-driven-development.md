@@ -87,7 +87,7 @@ The human's job is to steer, decide, and stay grounded. The agent's job is to ma
 
 ### What exists (jsed as the reference implementation)
 
-- **Vocabulary** (`docs/vocabulary.md`) — named domain concepts in UPPER_SNAKE_CASE (TOKEN, FOCUSABLE, LINE_SIBLING...). Human says "SPLIT_BY_TOKEN after the focused TOKEN" and the agent knows exactly what to do.
+- **Vocabulary** (`docs/vocab/`) — named domain concepts in UPPER_SNAKE_CASE (TOKEN, FOCUSABLE, LINE_SIBLING...). Human says "SPLIT_BY_TOKEN after the focused TOKEN" and the agent knows exactly what to do.
 - **Architecture narrative** (`docs/architecture.md`) — a story that builds bottom-up, each section depending only on what came before. Designed so a human can read top-to-bottom and understand the whole system before touching code.
 - **Deep modules structure** — top-level files show *what*, `lib/` shows *how*. The architecture narrative maps to the top level; you only dive into `lib/` to change internals.
 - **Orientation skill** (`/jsed`) — reads the above in order and summarizes, so a new session starts with shared context.
@@ -100,7 +100,7 @@ Any codebase could have this: vocab + narrative + orientation skill. The questio
 
 - jsed AGENTS.md: `/Users/danb/projects/@oneput/packages/jsed/AGENTS.md`
 - jsed architecture: `/Users/danb/projects/@oneput/packages/jsed/docs/architecture.md`
-- jsed vocabulary: `/Users/danb/projects/@oneput/packages/jsed/docs/vocabulary.md`
+- jsed vocabulary: `/Users/danb/projects/@oneput/packages/jsed/docs/vocab/coding.md`
 - jsed orientation skill: `/Users/danb/projects/@oneput/.agents/skills/jsed/SKILL.md`
 
 ---

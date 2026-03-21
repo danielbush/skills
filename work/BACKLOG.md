@@ -47,7 +47,7 @@ Extract transcripts from YouTube videos for processing. Investigate what opencla
 - drafted: 2026-03-21
 - summary: docs/ mixes different concerns — vocabulary.md is about refactoring/testing code, other docs are about bigger themes; needs reworking over time
 
-`docs/vocabulary.md` is really a vocab for the nullables pattern (refactoring and testing code). The other docs (`discussion-driven-development.md`, `themes.md`) are about the bigger themes driving this repo. These are different kinds of thing living in the same place. Not urgent, but worth thinking about how to organise as more docs accumulate.
+`docs/vocab/coding.md` is really a vocab for the nullables pattern (refactoring and testing code). The other docs (`discussion-driven-development.md`, `themes.md`) are about the bigger themes driving this repo. These are different kinds of thing living in the same place. Not urgent, but worth thinking about how to organise as more docs accumulate.
 
 ## feat: Architecture narrative skill
 - id: ARCHITECTURE_NARRATIVE__WORK
@@ -102,7 +102,9 @@ Investigate jdocmunch-mcp — what it does generally, and specifically: can it i
 ## chore: Vocabulary pass (broader)
 - id: VOCAB_BROADER__WORK
 - drafted: 2026-03-18
-- summary: Extend docs/vocabulary.md beyond nullables — deep modules, on-demand vs ambient skills, the four themes
+- summary: Create additional vocab files in docs/vocab/ for non-coding domains — deep modules, on-demand vs ambient skills, the four themes
+
+`docs/vocab/coding.md` covers nullables/testing. Other domains need their own vocab files in `docs/vocab/`. Candidates: collaboration terms (PATH, OFFERED_PROMPT), design principles (deep modules), skill mechanics (ambient vs on-demand).
 
 ## chore: Generalize @oneput skills
 - id: GENERALIZE_ONEPUT__WORK
