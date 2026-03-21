@@ -15,6 +15,8 @@ The core themes driving this repo are described fully in [`docs/discussion-drive
 
 These themes connect through a meta-idea: humans and agents both work well at high compression, but only when there's shared vocabulary, encoded patterns, and memory of why.
 
+Put another way: overlapping memory and context management to create agents that know what you were doing recently and last time, what was on your mind, what was bothering you, and what the project is about and how it works.
+
 See also [`docs/themes.md`](docs/themes.md) for how different kinds of knowledge (world-building, skills, strategic thinking) relate to each other.
 
 ## Starting a session
