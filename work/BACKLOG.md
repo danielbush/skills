@@ -6,6 +6,13 @@ Grep-friendly: `grep -A 3 "^## " work/BACKLOG.md` gives a quick index.
 
 ---
 
+## chore: Rethink docs/ structure
+- id: DOCS_STRUCTURE__WORK
+- drafted: 2026-03-21
+- summary: docs/ mixes different concerns — vocabulary.md is about refactoring/testing code, other docs are about bigger themes; needs reworking over time
+
+`docs/vocabulary.md` is really a vocab for the nullables pattern (refactoring and testing code). The other docs (`discussion-driven-development.md`, `themes.md`) are about the bigger themes driving this repo. These are different kinds of thing living in the same place. Not urgent, but worth thinking about how to organise as more docs accumulate.
+
 ## feat: Architecture narrative skill
 - id: ARCHITECTURE_NARRATIVE__WORK
 - drafted: 2026-03-20
