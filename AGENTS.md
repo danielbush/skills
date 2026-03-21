@@ -10,6 +10,7 @@ The themes and thinking behind this live in `docs/`:
 
 - [`docs/discussion-driven-development.md`](docs/discussion-driven-development.md) — the four central themes (shared understanding, design patterns, institutional memory, project collaboration) and the higher-order motivations behind them
 - [`docs/themes.md`](docs/themes.md) — how different layers of knowledge (world-building, skills, strategic thinking) relate to each other
+- [`docs/session-continuity.md`](docs/session-continuity.md) — the vision for "let's continue" — how .sessions/, work/, and docs/ combine to orient the agent at session start
 
 ## Vocabulary
 
