@@ -42,6 +42,23 @@ Tools for understanding unfamiliar code. Key approaches:
 
 Extract transcripts from YouTube videos for processing. Investigate what openclaw's approach is. Useful for the research tool (RESEARCH_TOOL__WORK) when references are video content.
 
+## feat: Session transcript archiving
+- id: SESSION_TRANSCRIPTS__WORK
+- drafted: 2026-03-22
+- summary: Archive conversation transcripts to .sessions/transcripts/ for searchable session continuity — "what was I thinking the other day"
+
+Raw transcripts live in `~/.claude/projects/<project-dir>/<session-id>.jsonl`. These contain full message history but also tool calls, file snapshots, and other noise that would blow up context if fed directly to a subagent.
+
+Needs a processing step — script or small subagent — to extract just the human/assistant conversation content into something lean and searchable. Could be plain markdown, could be a slimmed JSONL. The goal is: a subagent can sift through past transcripts to answer questions like "what was I thinking about X" or "remember that conversation where we discussed Y".
+
+Open questions:
+- What format? Markdown (readable) vs slim JSONL (structured)?
+- How much tool output to keep? Some tool results are part of the conversation flow
+- When to run? Part of session summarise, or a separate archival step?
+- Storage: `.sessions/transcripts/` in the project, or centralised?
+
+Relates to: WORK_TRACKER__WORK, OVERVIEW_SKILL__WORK
+
 ## chore: Rethink docs/ structure
 - id: DOCS_STRUCTURE__WORK
 - drafted: 2026-03-21
