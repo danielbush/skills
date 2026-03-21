@@ -1,6 +1,6 @@
 ---
 name: work-tracker
-description: "Create and manage work items, tickets, and tracking artifacts in a project's work/ directory. Also summarises sessions and searches past work. Use when the human wants to create a ticket, track work, log a decision, review the backlog, move items between statuses, scan what's in flight, summarise what was done in a session, or recall past work and decisions. Triggers on phrases like: 'create a ticket', 'let's track this', 'create a work item', 'what's in the backlog', 'what's active', 'move this to done', 'summarise this session', 'write up what we did', 'remember when we...', 'what did we do with...'. Bootstraps the work/ directory structure on first use if it doesn't exist."
+description: "Create and manage work items, tickets, and tracking artifacts in a project's work/ directory. Also handles session continuity, summarisation, and searching past work. Use when the human wants to create a ticket, track work, log a decision, review the backlog, move items between statuses, scan what's in flight, summarise what was done in a session, recall past work and decisions, or continue from a previous session. Triggers on phrases like: 'create a ticket', 'let's track this', 'create a work item', 'what's in the backlog', 'what's active', 'move this to done', 'summarise this session', 'write up what we did', 'remember when we...', 'what did we do with...', 'let's continue', 'where were we', 'what was I working on'. Bootstraps the work/ directory structure on first use if it doesn't exist."
 ---
 
 # Work Tracker
@@ -16,6 +16,7 @@ work/
   active/       → items being worked on
   done/         → completed items (moved here, not deleted)
   BACKLOG.md    → prioritised queue of future work
+.sessions/      → per-user session logs (can be committed or gitignored)
 ```
 
 Create `work/BACKLOG.md` with this header:
@@ -50,6 +51,13 @@ Body text — the initial proposal, plan, or discussion.
 
 Where we're at right now. Update this as work progresses — it should reflect the current state at a glance. Recent progress may be implied by items marked off below.
 
+## Changes
+
+Track important changes as they happen — decisions made, approaches tried, things learned. This is the ticket's own history. Use vocabulary terms where applicable. Each entry should be dated.
+
+- **2026-03-20** — decided X because Y
+- **2026-03-21** — switched approach from A to B; A didn't work because...
+
 ## Tasks
 
 - [ ] First thing to do
@@ -82,7 +90,53 @@ Examples:
 
 In a monorepo with packages, add the package name: `YYYYMMDD.<package>.<type>.<slug>.md`
 
+## Session log
+
+Each user has a session log at `.sessions/$USER.md` (e.g. `.sessions/danb.md`). Determine `$USER` from the system environment or ask on first use.
+
+The session log has a different focus from work items. Work items track *what's being built* — changes, decisions, tasks. The session log tracks *where the human's head is at* — what they were thinking about, what's bothering them, what concerns cut across tickets or don't belong to any ticket. It may reference work items but doesn't have to.
+
+### Format
+
+```markdown
+## YYYY-MM-DD
+
+### What happened
+- Brief summary of the session — what was discussed, explored, decided
+- Can reference work items but doesn't need to mirror their Changes sections
+
+### On my mind
+- What the human was thinking about, concerned with, or mulling over
+- Open questions, unresolved tensions, things that feel off
+- Cross-cutting concerns that span multiple tickets or no ticket at all
+- This is the headspace that work items don't capture
+
+### Open threads
+- TICKET_ID__WORK — brief note (optional, only if relevant)
+```
+
+### Rotation
+
+Rotate by month: `.sessions/danb.2026-03.md`. When a new month starts, begin a new file. The agent should only read the current month's file (and optionally the tail of the previous month if the session is near the boundary). This keeps context usage bounded.
+
+### When to write
+
+Append to the session log at the end of a session — when the human says "summarise", "write up what we did", or when the conversation is clearly wrapping up. The session log and work item updates can happen in the same operation.
+
 ## Operations
+
+### Continue from last session
+
+When the human says "let's continue", "where were we", "what was I working on", or starts a new session:
+
+1. Read the last entry in `.sessions/$USER.md` — this tells you what happened, what was on their mind, and which threads were open.
+2. Scan `work/active/` — read the Status section and checked/unchecked Tasks from each active item. This tells you the factual state of work across recent sessions.
+3. Present a summary that covers:
+   - **Last session**: what happened and what was on the human's mind
+   - **Current state of work**: which active items have progress, which are stalled, what's next
+4. Ask which thread to pick up (if multiple are active).
+
+The session log gives you the *feel* of where they left off. The work items give you the *facts*.
 
 ### Create a work item
 
@@ -126,18 +180,20 @@ Items can reference each other by id (e.g. "relates to SHARED_UNDERSTANDING__WOR
 
 ### Summarise a session
 
-When the human says "summarise this session", "write up what we did", "capture this", or at the end of a session:
+When the human says "summarise this session", "write up what we did", "capture this", or at the end of a session, do two things:
 
-1. Create or update a work item in `work/active/` for the session's work. Use the naming convention: `YYYYMMDD.<type>.<topic>.md`.
-2. If a file already exists for this session (same date and topic), update it rather than creating a new one. Append new changes and decisions, update the summary. Don't duplicate content already captured.
-3. Structure the body with two sections:
+**1. Update work items** — for each active ticket that was worked on:
+- Update the Status section to reflect current state
+- Check off completed Tasks
+- Update the frontmatter `summary:` if it's shifted
+- If no ticket exists for this work, create one in `work/active/`
 
-**Changes** — focus on conceptual changes, not implementation details. Group by theme, not by file. Use vocabulary terms (UPPER_SNAKE_CASE) from the project's `docs/vocabulary.md` when they apply.
+**2. Append to session log** — add an entry to `.sessions/$USER.md` with:
+- **What happened** — conceptual changes, grouped by theme. Use vocabulary terms (UPPER_SNAKE_CASE) from `docs/vocabulary.md` when they apply.
+- **On my mind** — what the human was thinking about, concerned with, open questions. Capture the headspace, not just the deliverables.
+- **Open threads** — which work items are active and where they stand.
 
-**Decisions** — record design decisions and the *why* behind them. These are the things that would be lost between sessions: motivation, rejected alternatives, non-obvious reasoning.
-
-4. The frontmatter `summary:` is the most important line — optimise it for scanning by a future reader (human or agent) skimming `work/` to find relevant context.
-5. Keep it concise — a summary should be shorter than the conversation that produced it. Focus on decisions and the why; the what is in the code.
+Keep both concise. Focus on decisions and the why; the what is in the code. The frontmatter `summary:` on work items is the most important line — optimise it for scanning.
 
 ### Search past work
 

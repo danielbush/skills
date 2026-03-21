@@ -50,7 +50,7 @@ AGENTS.md is the "always-on" layer, skills are the "on-demand" layer. Same idea 
 ```
   CLAUDE.md        → points to AGENTS.md (no longer a symlink)
   AGENTS.md        → how to work here, memory model, vocab preference
-  SESSIONS.md      → session log, enables "let's continue"
+  .sessions/       → per-user session logs, enables "let's continue"
   work/
     BACKLOG.md     → prioritised backlog (grep-friendly)
     discussion/    → big picture, themes, motivations
