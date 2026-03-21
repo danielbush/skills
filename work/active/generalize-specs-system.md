@@ -1,4 +1,5 @@
 ---
+id: GENERALIZE_SPECS__WORK
 status: active
 created: 2026-03-17
 summary: Extract the work/summarize/remember system from oneput into a general-purpose skill set that works across projects

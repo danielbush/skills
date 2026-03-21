@@ -1,4 +1,5 @@
 ---
+id: SHARED_UNDERSTANDING__WORK
 status: active
 created: 2026-03-17
 summary: Generalize the jsed vocab + architecture narrative + orientation pattern into a reusable skill that bootstraps shared understanding for any codebase
