@@ -11,48 +11,39 @@ The themes and thinking behind this live in `docs/`:
 - [`docs/discussion-driven-development.md`](docs/discussion-driven-development.md) — the four central themes (shared understanding, design patterns, institutional memory, project collaboration) and the higher-order motivations behind them
 - [`docs/themes.md`](docs/themes.md) — how different layers of knowledge (world-building, skills, strategic thinking) relate to each other
 
-At session start, remind the human what this repo is about and invite them to dive into the themes if they want to revisit.
-
-## Starting a session
-
-When the human starts a new conversation (greeting, "hello", "let's continue", or similar):
-
-1. Briefly remind them what this repo is about (use the purpose statement above).
-2. Read the `summary:` frontmatter from `docs/discussion-driven-development.md` and `docs/themes.md` — use these to ground the reminder without reading the full files.
-3. Offer these options:
-   - **Continue where we left off?** — read the last entry in `.sessions/$USER.md` and scan `work/active/` to summarise current state (last session's feel + factual work progress) and ask which thread to pick up
-   - **Review the backlog?** — scan [`work/BACKLOG.md`](work/BACKLOG.md) (`grep -A 3 "^## "` for quick index)
-   - **Dive into the themes?** — read the full `docs/discussion-driven-development.md` and/or `docs/themes.md` and walk through them
-
-When continuing, always read `.sessions/$USER.md` (last entry) and `work/active/` to orient.
-
-## How to orient
-
-- [.sessions/](/.sessions/) — per-user session logs (what happened, what was on your mind)
-- [docs/](docs/) — vocabulary, themes, strategic thinking, architecture
-- [work/active/](work/active/) — work in progress, being delivered
-- [work/BACKLOG.md](work/BACKLOG.md) — quick sketches of future work, prioritised (`grep -A 3 "^## "` for quick index)
-
-## Memory model
-
-Overlapping layers of memory create continuity:
-
-- **Current context** (conversation) — short-term, resets each session
-- **.sessions/$USER.md** — short-term bridge, what happened last time, what was on your mind
-- **work/** — mid-term, tracks active work and progress across sessions
-- **docs/** (vocabulary, architecture, themes) — long-term, the durable shared understanding of what the project is and how it works
-
 ## Vocabulary
 
 Use vocabulary terms (UPPER_SNAKE_CASE) from `docs/vocabulary.md` when they exist. Always use them in agent output — the human prefers the shared language to be "on" so both sides stay in the same conceptual frame.
 
 ## Skills
 
-- `skills/nullables-refactor/` — analyze a file and plan nullable refactoring (side-effect boundary classification, HARDWIRED_INFRA detection, CREATE_BOUNDARY_RULE checks)
-- `skills/nullables-test/` — write illustrative tests after refactoring (precondition checks, recursive nullability verification, state-based tests via .createNull)
-- `skills/effect-ts/` — effect-ts reference
-- `skills/work-tracker/` — work items, session continuity, summarisation, and search across `work/` and `.sessions/`
-- `sandbox/nullables-skill/` — original monolithic nullables skill (reference only, being superseded)
+Skills are portable — they carry knowledge about *how to do things* across projects. Install with `bunx skills add danielbush/skills --agent claude-code --skill <name>`. They activate based on what the human says (semantic matching against the description).
+
+### work-tracker — session continuity, work items, and memory
+
+**Theme: project collaboration + institutional memory**
+
+Handles session start/continue ("let's continue", "where were we"), creating and managing work items ("create a ticket", "let's track this"), summarising sessions, and searching past work ("remember when we..."). Bootstraps `work/` and `.sessions/` on first use.
+
+This is the skill that creates the overlapping memory layers: `.sessions/` for short-term (what happened, what was on your mind), `work/` for mid-term (active tickets, backlog), sitting on top of `docs/` for long-term (vocab, architecture, themes).
+
+### nullables-refactor — analyse and plan nullable refactoring
+
+**Theme: design patterns**
+
+Analyse a file and produce a refactoring plan for the nullables pattern. Classifies code by side-effect boundary (PURE, IN_MEMORY, OUTSIDE_WORLD), identifies HARDWIRED_INFRA, determines INFRASTRUCTURE_WRAPPER vs NULLABLE_CLASS, checks CREATE_BOUNDARY_RULE compliance and DELAYED_INSTANTIATION.
+
+### nullables-test — write illustrative tests after refactoring
+
+**Theme: design patterns**
+
+Write tests for code that follows the nullables pattern. Verifies preconditions (all HARDWIRED_INFRA replaced, every dependency has `.createNull`), then writes narrow, sociable, state-based tests. Tests are illustrations of the system, not just coverage.
+
+### effect-ts — effect-ts reference
+
+Reference material for effect-ts.
+
+### sandbox/nullables-skill/ — original monolithic nullables skill (reference only, being superseded)
 
 <!-- opensrc:start -->
 

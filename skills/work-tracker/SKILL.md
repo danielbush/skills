@@ -125,16 +125,20 @@ Append to the session log at the end of a session — when the human says "summa
 
 ## Operations
 
-### Continue from last session
+### Start / continue a session
 
 When the human says "let's continue", "where were we", "what was I working on", or starts a new session:
 
-1. Read the last entry in `.sessions/$USER.md` — this tells you what happened, what was on their mind, and which threads were open.
-2. Scan `work/active/` — read the Status section and checked/unchecked Tasks from each active item. This tells you the factual state of work across recent sessions.
-3. Present a summary that covers:
+1. Read the `summary:` frontmatter from the project's theme docs (e.g. `docs/discussion-driven-development.md`, `docs/themes.md`) if they exist. Briefly remind the human what the project is about.
+2. Read the last entry in `.sessions/$USER.md` — this tells you what happened, what was on their mind, and which threads were open.
+3. Scan `work/active/` — read the Status section and checked/unchecked Tasks from each active item. This tells you the factual state of work across recent sessions.
+4. Present a summary that covers:
    - **Last session**: what happened and what was on the human's mind
    - **Current state of work**: which active items have progress, which are stalled, what's next
-4. Ask which thread to pick up (if multiple are active).
+5. Offer options:
+   - Pick up a thread (if multiple are active)
+   - **Review the backlog?** — `grep -A 3 "^## " work/BACKLOG.md` for a quick index
+   - **Dive into the themes?** — read the full theme docs and walk through them
 
 The session log gives you the *feel* of where they left off. The work items give you the *facts*.
 
