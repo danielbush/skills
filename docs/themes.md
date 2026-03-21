@@ -7,6 +7,10 @@ summary: "Three knowledge layers: world-building (vocab, architecture — ambien
 
 # chore: Knowledge layers
 
+The goal: overlapping memory and context management to create agents that know what you were doing recently and last time, what was on your mind, what was bothering you, and what the project is about and how it works.
+
+These layers are how that's achieved.
+
 ## The layers
 
 ### World-building (ambient, long-term, project-bound)

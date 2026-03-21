@@ -12,6 +12,8 @@ Explore and build tooling for the divide between human and agent in code and sys
 
 ## The Meta-Idea
 
+Put simply: overlapping memory and context management to create agents that know what you were doing recently and last time, what was on your mind, what was bothering you, and what the project is about and how it works.
+
 Humans and agents both work well at high compression. A human says "make this nullable" or "SPLIT_BY_TOKEN after the CURSOR" and the agent can unpack that into dozens of concrete code changes. But this only works if:
 
 1. **There's shared vocabulary** — so compressed statements are unambiguous
