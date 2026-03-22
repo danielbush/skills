@@ -1,1 +1,1 @@
-../../../docs/vocabulary.md
+../../../docs/vocab/coding.md
