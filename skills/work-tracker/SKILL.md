@@ -15,6 +15,7 @@ If `work/` doesn't exist in the project root, create the full structure before d
 work/
   active/       → items being worked on
   done/         → completed items (moved here, not deleted)
+  discussion/   → clarifying ideas and ongoing high-level thinking
   BACKLOG.md    → prioritised queue of future work
 .sessions/      → per-user session logs (can be committed or gitignored)
 ```
@@ -89,6 +90,15 @@ Examples:
 - `20260320.chore.explore-pi-harness.md`
 
 In a monorepo with packages, add the package name: `YYYYMMDD.<package>.<type>.<slug>.md`
+
+## Discussion items (`work/discussion/`)
+
+Discussion items serve two purposes:
+
+1. **Clarifying ideas before action** — when an idea isn't yet concrete enough for a backlog item or active ticket, it lives here while the human and agent work out what it means and what actionable outcomes it leads to.
+2. **Ongoing high-level thinking** — some discussions are never "done" in the way a ticket is. They capture thematic, strategic ways of thinking that evolve over time and inform other work without being work items themselves.
+
+Discussion items use the same format as other work items (frontmatter, status, changes) but with `status: discussion`. They don't need tasks or a clear endpoint. When a discussion crystallises into something actionable, create a new item in `active/` or `BACKLOG.md` and reference the discussion.
 
 ## Session log
 

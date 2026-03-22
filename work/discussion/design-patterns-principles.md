@@ -1,6 +1,6 @@
 ---
 id: DESIGN_PATTERNS__WORK
-status: active
+status: discussion
 created: 2026-03-17
 summary: Decide where each design pattern lives (CLAUDE.md principle vs skill workflow) and draft the CLAUDE.md principles section for deep modules, DI/IoC, consumer-defined interfaces
 parent: ../../docs/discussion-driven-development.md

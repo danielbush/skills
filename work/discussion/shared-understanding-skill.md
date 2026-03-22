@@ -1,6 +1,6 @@
 ---
 id: SHARED_UNDERSTANDING__WORK
-status: active
+status: discussion
 created: 2026-03-17
 summary: Generalize the jsed vocab + architecture narrative + orientation pattern into a reusable skill that bootstraps shared understanding for any codebase
 parent: ../../docs/discussion-driven-development.md
