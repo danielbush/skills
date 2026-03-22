@@ -1,10 +1,11 @@
 ---
 id: COLLAB_FRAMEWORK__WORK
-status: active
+status: done
 created: 2026-03-17
 summary: Define a standard set of project files (AGENTS.md, .sessions/, work/, docs/) that together give an agent full continuity across sessions and alignment with the human on goals, principles, progress, and reasoning
 parent: ../../docs/discussion-driven-development.md
 theme: "Way of Working"
+outcome: Superseded by work-tracker skill (WORK_TRACKER__WORK) which implements the framework as a portable skill. The memory model and file layout ideas were absorbed into OVERLAPPING_MEMORY vocab and OVERVIEW_SKILL__WORK. PRD.md, TODO.md, SESSIONS.md consolidated into work/ + .sessions/ + docs/.
 ---
 
 ## Goal
