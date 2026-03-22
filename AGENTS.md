@@ -10,7 +10,7 @@ The themes and thinking behind this live in `docs/`:
 
 - [`docs/discussion-driven-development.md`](docs/discussion-driven-development.md) — the four central themes (shared understanding, design patterns, institutional memory, project collaboration) and the higher-order motivations behind them
 - [`docs/themes.md`](docs/themes.md) — how different layers of knowledge (world-building, skills, strategic thinking) relate to each other
-- [`docs/session-continuity.md`](docs/session-continuity.md) — the vision for "let's continue" — how .sessions/, work/, and docs/ combine to orient the agent at session start
+- [`docs/session-continuity.md`](docs/session-continuity.md) — the vision for "let's continue" — how work/.sessions/, work/, and docs/ combine to orient the agent at session start
 
 ## Vocabulary
 
@@ -24,9 +24,9 @@ Skills are portable — they carry knowledge about *how to do things* across pro
 
 **Theme: project collaboration + institutional memory**
 
-Handles session start/continue ("let's continue", "where were we"), creating and managing work items ("create a ticket", "let's track this"), summarising sessions, and searching past work ("remember when we..."). Bootstraps `work/` and `.sessions/` on first use.
+Handles session start/continue ("let's continue", "where were we"), creating and managing work items ("create a ticket", "let's track this"), summarising sessions, and searching past work ("remember when we..."). Bootstraps `work/` on first use.
 
-This is the skill that creates the overlapping memory layers: `.sessions/` for short-term (what happened, what was on your mind), `work/` for mid-term (active tickets, backlog), sitting on top of `docs/` for long-term (vocab, architecture, themes).
+This is the skill that creates the overlapping memory layers: `work/.sessions/` for short-term (what happened, what was on your mind), `work/` for mid-term (active tickets, backlog), sitting on top of `docs/` for long-term (vocab, architecture, themes).
 
 ### nullables-refactor — analyse and plan nullable refactoring
 
