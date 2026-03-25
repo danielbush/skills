@@ -16,7 +16,7 @@ work/
   active/              → items being worked on (human + model)
   active/unsupervised/ → items an agent is working on autonomously
   done/                → completed items (moved here, not deleted)
-  discussion/          → clarifying ideas and ongoing high-level thinking
+  discussion/          → things you're not sure about — write them down, discuss with an agent or colleague
   backlog/             → prioritised queues of future work
   backlog/unsupervised/ → queued items for autonomous agent work
   .sessions/           → per-user session logs (user decides: commit or gitignore)
@@ -103,9 +103,11 @@ Package scope lives in frontmatter (`package:` / `packages:`), not the filename.
 
 ## Discussion items (`work/discussion/`)
 
+The primary purpose of `work/discussion/` is to **put down things you're not sure about** so you can discuss them with someone — another human, an agent, or your future self. Writing it down is the first step; the discussion that follows is what produces clarity.
+
 Discussion items serve two purposes:
 
-1. **Clarifying ideas before action** — when an idea isn't yet concrete enough for a backlog item or active ticket, it lives here while the human and agent work out what it means and what actionable outcomes it leads to.
+1. **Capturing uncertainty for discussion** — when you have an idea, concern, or question that isn't resolved yet, write it down here. The act of writing crystallises the issue; having it in a file means you can point an agent (or a colleague) at it and say "what do you think about this?" This is the primary use case — it's a place for things you're unsure about that benefit from another perspective.
 2. **Ongoing high-level thinking** — some discussions are never "done" in the way a ticket is. They capture thematic, strategic ways of thinking that evolve over time and inform other work without being work items themselves.
 
 Discussion items use the same format as other work items (frontmatter, status, changes) but with `status: discussion`. They don't need tasks or a clear endpoint. When a discussion crystallises into something actionable, create a new item in `active/` or the relevant backlog file and reference the discussion.
