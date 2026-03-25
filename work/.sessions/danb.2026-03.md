@@ -61,3 +61,21 @@
 - NULLABLES_SKILLS__WORK — evals for test skill, refactor eval gap, testing principles to incorporate
 - ARCHITECTURE_NARRATIVE__WORK — top of backlog, port jsed story-telling approach
 - GENERALIZE_ONEPUT__WORK, GENERALIZE_JSED__WORK — extract and consolidate skills from @oneput
+
+## 2026-03-25
+
+### What happened
+- Added test-level guideline to nullables-test skill Philosophy section: "build confidence from the top down" — because nullables make sociable tests practical at higher levels, start there and drop down as needed. Not anti-lower-level, just pragmatic.
+- Ticked off test level and instantiation on NULLABLES_SKILLS__WORK — AAA pattern is the remaining testing principle to incorporate.
+- Extended work-tracker skill with unsupervised ticket support: `backlog/unsupervised/` → `active/unsupervised/`, with `mode: unsupervised` frontmatter, self-contained instructions, and acceptance criteria. `active/` stays the human+model space.
+- Attempted to add jcodemunch-mcp as MCP server — added to `.mcp.json` but couldn't connect mid-session. Needs a session restart.
+
+### On my mind
+- **Unsupervised work** — just added the structure, want to try it out and see if the self-contained instructions are practical to write and sufficient for an agent to run with
+- **jcodemunch-mcp** — interested in building a skill that uses `bunx mcporter` to query it for code search. Need to see what tools it exposes first (restart session, then `mcporter list` or inspect directly)
+- The backlog item JDOCMUNCH__WORK references "jdocmunch-mcp" but the actual package is `jcodemunch-mcp` — may need updating
+
+### Open threads
+- NULLABLES_SKILLS__WORK — AAA pattern still to incorporate; evals for test skill outstanding
+- WORK_TRACKER__WORK — unsupervised support added, needs real-world testing
+- jcodemunch-mcp — next session: connect MCP, explore tools, design skill
