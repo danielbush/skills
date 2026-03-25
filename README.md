@@ -9,7 +9,6 @@ To add to a project:
 ```sh
 bunx skills add danielbush/skills --agent claude-code --skill nullables-refactor
 bunx skills add danielbush/skills --agent claude-code --skill nullables-test
-bunx skills add danielbush/skills --agent claude-code --skill work-tracker
 ```
 
 ### `nullables-refactor`
@@ -39,6 +38,24 @@ Run evals with:
 task evals:nullables-refactor
 ```
 
+## Work tracker
+
+Session continuity, work items, and memory. Handles "let's continue", ticket creation, session summarisation, and searching past work.
+
+```sh
+bunx skills add danielbush/skills --agent claude-code --skill work-tracker
+```
+
+## jcodemunch
+
+Code search and exploration using [jcodemunch-mcp](https://github.com/jgravelle/jcodemunch-mcp) via [mcporter](https://github.com/steipete/mcporter). Symbol-aware search, dependency graphs, blast radius analysis, and repo orientation — without loading the full MCP server into context.
+
+```sh
+bunx skills add danielbush/skills --agent claude-code --skill jcodemunch
+```
+
+Requires `jcodemunch-mcp` to be installed (`uvx jcodemunch-mcp`) and repos to be indexed before querying.
+
 ## Development
 
 A place to incubate and play with skills or related things to do with context.  Very much in alpha.
@@ -53,6 +70,6 @@ AGENTS.md is the "always-on" layer, skills are the "on-demand" layer. Same idea 
   .sessions/       → per-user session logs, enables "let's continue"
   work/
     BACKLOG.md     → prioritised backlog (grep-friendly)
-    discussion/    → big picture, themes, motivations
+    discussion/    → things you're not sure about — discuss with an agent or colleague
     active/        → current work items
 ```
