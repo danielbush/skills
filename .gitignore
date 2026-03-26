@@ -7,3 +7,5 @@ opensrc/
 
 # eval workspaces (generated, not source)
 *-workspace/
+
+__pycache__/

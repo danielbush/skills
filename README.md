@@ -46,9 +46,11 @@ Session continuity, work items, and memory. Handles "let's continue", ticket cre
 bunx skills add danielbush/skills --agent claude-code --skill work-tracker
 ```
 
-## jcodemunch
+## jcodemunch (WIP)
 
 Code search and exploration using [jcodemunch-mcp](https://github.com/jgravelle/jcodemunch-mcp) via [mcporter](https://github.com/steipete/mcporter). Symbol-aware search, dependency graphs, blast radius analysis, and repo orientation — without loading the full MCP server into context.
+
+**Status**: trigger eval showed 0% auto-trigger rate. Claude doesn't consult skills for code exploration tasks because it thinks it can handle them with built-in tools (Read/Grep/Glob). Investigating alternatives — CLAUDE.md instructions, explicit `/jcodemunch` slash command, or hybrid. See JCODEMUNCH__WORK for details.
 
 ```sh
 bunx skills add danielbush/skills --agent claude-code --skill jcodemunch
