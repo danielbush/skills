@@ -109,6 +109,15 @@ Reference: https://youtu.be/wVe3XOnio7M
 
 Framework from https://github.com/badlogic/pi-mono (also used in openclaw). Interested in both coding workflows and non-coding flows for managing whole systems (devops).
 
+## feat: Work-tracker MCP server
+- id: WORK_TRACKER_MCP__WORK
+- drafted: 2026-04-01
+- summary: MCP server backing the work-tracker skill — db-backed ticket system, skill talks to server via mcporter
+
+Explore building an MCP server for the ticket/work-item system so that updates go through a proper db rather than file edits. The work-tracker skill would use mcporter to talk to the server. Questions: what db (sqlite?), what's the API surface, does the file-based format remain the source of truth or does the db become it?
+
+Relates to: WORK_TRACKER__WORK, MCPORTER__WORK
+
 ## chore: Vocabulary pass (broader)
 - id: VOCAB_BROADER__WORK
 - drafted: 2026-03-18
