@@ -46,10 +46,6 @@ Reference material for effect-ts.
 
 ### sandbox/nullables-skill/ — original monolithic nullables skill (reference only, being superseded)
 
-<!-- opensrc:start -->
+### opensrc — fetch and reference dependency source code
 
-## Source Code Reference
-
-Dependencies source code is in `opensrc/` (see `opensrc/sources.json` for available packages). Fetch more with `npx opensrc <package>` (also supports `pypi:`, `crates:`, or `owner/repo`).
-
-<!-- opensrc:end -->
+Fetch source for npm, PyPI, crates.io, or GitHub repos into `opensrc/`. Use when you need to understand how a package works internally.
