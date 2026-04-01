@@ -3,7 +3,7 @@ data/*
 !data/.keep
 
 # opensrc - source code for packages
-opensrc/
+opensrc/repos
 
 # eval workspaces (generated, not source)
 *-workspace/
