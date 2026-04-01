@@ -53,11 +53,13 @@ tasks:
     desc: Validate skills
     summary: |
       Note that agentsksills repo is a reference implementation.
+      Usage: task skills:validate -- work-tracker
+    vars:
+      VALIDATE: uvx --from "git+https://github.com/agentskills/agentskills.git#subdirectory=skills-ref" skills-ref validate
     cmds:
-      - uvx \
-        --from "git+https://github.com/agentskills/agentskills.git#subdirectory=skills-ref" \
-        skills-ref \
-        validate skills/nullables
+      - '{{.VALIDATE}} skills/work-tracker'
+      - '{{.VALIDATE}} skills/nullables-refactor'
+      - '{{.VALIDATE}} skills/nullables-test'
 
   evals:nullables-refactor:
     desc: Run nullables-refactor skill evals using skill-creator
@@ -71,8 +73,9 @@ tasks:
   opensrc:
     desc: Fetch anthropic create-skills repo using opensrc
     cmds:
-      - bunx opensrc fetch --modify deny:AGENTS.md https://github.com/anthropics/skills
+      - bunx opensrc fetch --modify=false https://github.com/anthropics/skills
       - bunx opensrc fetch https://github.com/steipete/mcporter
       - bunx opensrc fetch https://github.com/jgravelle/jcodemunch-mcp
       - bunx opensrc fetch https://github.com/jgravelle/jdocmunch-mcp
+      - bunx opensrc fetch github.com/agentskills/agentskills
     silent: true
