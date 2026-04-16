@@ -114,6 +114,14 @@ Start with these questions:
 
 Usually the answer is to introduce or improve an infrastructure wrapper.
 
+## Embedded Infrastructure (Anti-Pattern)
+
+The most common cause of mock-heavy tests is **embedded infrastructure** — a function or method that calls the outside world on some line, with the dependency imported at the top of the file. This is pervasive in JS, TS, Python, and other languages. Because the dependency is hardwired via import, the only way to control it in tests is to patch or mock it.
+
+Mocking frameworks (Jest's `__mocks__`, Python's `unittest.mock`) exist to work around this pattern. They can be manageable if all external calls are corralled into one place, but they still couple tests to import paths and call mechanics.
+
+The preferred fix is injection: extract the environment call into an infrastructure wrapper and pass it in. This is what the rest of this skill describes.
+
 ## Infrastructure Wrappers
 
 Infrastructure wrappers are the lowest-level classes that touch one external system and present a clean API to the rest of the code. In Shore's pattern language, infrastructure wrappers sit at the environment boundary and own the reusable nullability machinery.
@@ -441,6 +449,8 @@ If you are already calling the real domain API of the collaborator, that is not 
 
 ## State-Based Assertions
 
+Interaction-based tests (mocks, spies, call counts) lock in design choices harder than anything else — they couple tests to how code collaborates internally, not what it achieves. Assert on outcomes instead.
+
 Prefer asserting:
 
 - returned values
@@ -569,6 +579,10 @@ expect(writes.data).toEqual([{ key: "draft", value: "hello" }]);
 ```
 
 ## What To Test
+
+Prefer testing at the highest level the nullable graph allows. Because we inject infrastructure and write sociable tests through real code, we can test happy paths, sad paths, and edge cases deterministically and instantly at the top level without mocks or real I/O.
+
+Avoid redundant tests on intermediate code. Testing intermediate layers (1) locks in design choices that should be free to change and (2) often duplicates what a higher-level test already covers. Only add intermediate tests when they cover something the top-level test genuinely cannot reach and the test is easier to write and read at that level.
 
 Choose a few tests that teach the system.
 
