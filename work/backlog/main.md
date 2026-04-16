@@ -6,6 +6,10 @@ Grep-friendly: `grep -A 3 "^## " work/BACKLOG.md` gives a quick index.
 
 ---
 
+## Drafting
+
+- do we need a deep modules skill?  It's mentioned in the logic sandwich skill.
+
 ## feat: Research tool skill
 - id: RESEARCH_TOOL__WORK
 - drafted: 2026-03-22
