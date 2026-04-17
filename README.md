@@ -1,6 +1,11 @@
 # Skills
 
-## Design philosophy
+Primarily focuses on coding skills and prmopt/context engineering ideas.
+A place to incubate and play with skills or related things to do with context.  Very much in alpha.
+
+## Codiing skills
+
+### Design philosophy
 
 One rule applied at every level: **don't embed calls to the outside world — inject them.** Everything else follows from that.
 
@@ -19,7 +24,7 @@ These ideas are heavily inspired by others' work — in particular James Shore's
 
 The design philosophy above works better when human and agent share a named language for it. We're exploring the idea of deliberately engineering vocabulary (`docs/vocab/`) — UPPER_SNAKE_CASE terms like INFRASTRUCTURE_WRAPPER, EMBEDDED_STUB, DEEP_MODULE — so both sides can communicate at high compression without losing precision. Paired with a bottom-up architecture narrative (`docs/architecture.md`) where each section depends only on what came before, these become "world-building" artifacts: ambient project knowledge that lets an agent orient itself without being told everything from scratch each session. This isn't a skill yet — it's a direction. See `work/discussion/shared-understanding-skill.md` and `docs/themes.md` for the longer conversation.
 
-## Nullables testing style
+### Nullables testing style
 
 Testing style inspired by James Shore's [nullable pattern](https://www.jamesshore.com/v2/projects/nullables/testing-without-mocks). Covers infrastructure wrappers, embedded stubs, configurable responses, output tracking, behavior simulation, and sociable state-based tests without mocks. Also covers the embedded infrastructure anti-pattern and why injection is preferred over mocking frameworks.
 
@@ -27,7 +32,7 @@ Testing style inspired by James Shore's [nullable pattern](https://www.jamesshor
 bunx skills add danielbush/skills --agent claude-code --skill nullables-testing-style
 ```
 
-## Logic sandwich
+### Logic sandwich
 
 Refactor top-level orchestrator methods into three layers: gather state at the edges, compute a pure intent in the middle, apply effects at the bottom. Fits deep-modules codebases where top-level files should stay simple and high-level.
 
@@ -35,15 +40,7 @@ Refactor top-level orchestrator methods into three layers: gather state at the e
 bunx skills add danielbush/skills --agent claude-code --skill logic-sandwich
 ```
 
-## Work tracker
-
-Session continuity, work items, and memory. Handles "let's continue", ticket creation, session summarisation, and searching past work.
-
-```sh
-bunx skills add danielbush/skills --agent claude-code --skill work-tracker
-```
-
-## jcodemunch (WIP)
+### jcodemunch (WIP)
 
 Code search and exploration using [jcodemunch-mcp](https://github.com/jgravelle/jcodemunch-mcp) via [mcporter](https://github.com/steipete/mcporter). Symbol-aware search, dependency graphs, blast radius analysis, and repo orientation — without loading the full MCP server into context.
 
@@ -55,9 +52,19 @@ bunx skills add danielbush/skills --agent claude-code --skill jcodemunch
 
 Requires `jcodemunch-mcp` to be installed (`uvx jcodemunch-mcp`) and repos to be indexed before querying.
 
+## Project management skills
+
+### Work tracker
+
+Session continuity, work items, and memory. Handles "let's continue", ticket creation, session summarisation, and searching past work.
+
+```sh
+bunx skills add danielbush/skills --agent claude-code --skill work-tracker
+```
+
 ## Development
 
-A place to incubate and play with skills or related things to do with context.  Very much in alpha.
+Uses work-tracker skill.
 
 Say "Let's continue" to pick up from last time - this is controlled in AGENTS.md.
 
