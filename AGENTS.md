@@ -28,24 +28,34 @@ Handles session start/continue ("let's continue", "where were we"), creating and
 
 This is the skill that creates the overlapping memory layers: `work/.sessions/` for short-term (what happened, what was on your mind), `work/` for mid-term (active tickets, backlog), sitting on top of `docs/` for long-term (vocab, architecture, themes).
 
-### nullables-refactor — analyse and plan nullable refactoring
+### nullables-testing-style — refactor and test in the Nullables style
 
 **Theme: design patterns**
 
-Analyse a file and produce a refactoring plan for the nullables pattern. Classifies code by side-effect boundary (PURE, IN_MEMORY, OUTSIDE_WORLD), identifies HARDWIRED_INFRA, determines INFRASTRUCTURE_WRAPPER vs NULLABLE_CLASS, checks CREATE_BOUNDARY_RULE compliance and DELAYED_INSTANTIATION.
+Guidance for refactoring code and writing tests in the Nullables style: choosing between `new`, `.create()`, and `.createNull()`, introducing infrastructure wrappers at the environment boundary, adding behavior simulation and output tracking, and writing narrow, sociable, example-driven, state-based tests without mocks or spies.
 
-### nullables-test — write illustrative tests after refactoring
+### logic-sandwich — refactor orchestrators into gather / decide / apply
 
 **Theme: design patterns**
 
-Write tests for code that follows the nullables pattern. Verifies preconditions (all HARDWIRED_INFRA replaced, every dependency has `.createNull`), then writes narrow, sociable, state-based tests. Tests are illustrations of the system, not just coverage.
+Use when refactoring a top-level orchestrator or mediator method so it gathers state at the edges, computes a pure intent in the middle, and applies effects at the bottom. Especially useful in deep-modules codebases where top-level modules should stay readable and orchestration-focused.
 
-### effect-ts — effect-ts reference
+### jcodemunch — symbol-aware code search and exploration
 
-Reference material for effect-ts.
+**Theme: shared understanding**
 
-### sandbox/nullables-skill/ — original monolithic nullables skill (reference only, being superseded)
+Query jcodemunch-mcp indexed codebases via `bunx mcporter` for symbol-aware code intelligence (definitions, references, call chains, dependency/impact analysis) beyond what plain grep offers. Prefer this over raw file reads when exploring code structure, relationships, or usage patterns.
 
 ### opensrc — fetch and reference dependency source code
 
 Fetch source for npm, PyPI, crates.io, or GitHub repos into `opensrc/`. Use when you need to understand how a package works internally.
+
+## Sandbox
+
+`sandbox/` holds in-progress or superseded skills and reference material. Not installed as active skills.
+
+- `sandbox/nullables/` — reference notes and diagrams on James Shore's Nullables pattern (nullables.md, testing-without-mocks-diagrams.md)
+- `sandbox/nullables-skill/` — original monolithic nullables skill, superseded by `skills/nullables-testing-style`
+- `sandbox/nullables-refactor/` — analyse a file and produce a Nullables refactoring plan (classifies PURE / IN_MEMORY / OUTSIDE_WORLD, identifies HARDWIRED_INFRA, checks CREATE_BOUNDARY_RULE and DELAYED_INSTANTIATION). Includes evals and references.
+- `sandbox/nullables-test/` — write illustrative, narrow, sociable, state-based tests after a Nullables refactor
+- `sandbox/nullables-refactor-workspace/` — iteration workspace with benchmarks and eval cases (already-compliant, hardwired-function, mixed-class, partial-nullable) used to develop the refactor skill
