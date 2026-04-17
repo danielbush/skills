@@ -9,3 +9,5 @@ opensrc/repos
 *-workspace/
 
 __pycache__/
+
+.vscode/
