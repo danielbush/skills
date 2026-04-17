@@ -28,7 +28,7 @@ Handles session start/continue ("let's continue", "where were we"), creating and
 
 This is the skill that creates the overlapping memory layers: `work/.sessions/` for short-term (what happened, what was on your mind), `work/` for mid-term (active tickets, backlog), sitting on top of `docs/` for long-term (vocab, architecture, themes).
 
-### nullables-testing-style — refactor and test in the Nullables style
+### nullable-architecture — refactor and test in the Nullables style
 
 **Theme: design patterns**
 
@@ -55,7 +55,7 @@ Fetch source for npm, PyPI, crates.io, or GitHub repos into `opensrc/`. Use when
 `sandbox/` holds in-progress or superseded skills and reference material. Not installed as active skills.
 
 - `sandbox/nullables/` — reference notes and diagrams on James Shore's Nullables pattern (nullables.md, testing-without-mocks-diagrams.md)
-- `sandbox/nullables-skill/` — original monolithic nullables skill, superseded by `skills/nullables-testing-style`
+- `sandbox/nullables-skill/` — original monolithic nullables skill, superseded by `skills/nullable-architecture`
 - `sandbox/nullables-refactor/` — analyse a file and produce a Nullables refactoring plan (classifies PURE / IN_MEMORY / OUTSIDE_WORLD, identifies HARDWIRED_INFRA, checks CREATE_BOUNDARY_RULE and DELAYED_INSTANTIATION). Includes evals and references.
 - `sandbox/nullables-test/` — write illustrative, narrow, sociable, state-based tests after a Nullables refactor
 - `sandbox/nullables-refactor-workspace/` — iteration workspace with benchmarks and eval cases (already-compliant, hardwired-function, mixed-class, partial-nullable) used to develop the refactor skill

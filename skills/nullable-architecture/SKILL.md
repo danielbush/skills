@@ -1,9 +1,9 @@
 ---
-name: nullables-testing-style
+name: nullable-architecture
 description: "Use when refactoring code or writing tests in the Nullables style: choose between `new`, `.create()`, and `.createNull()`, introduce infrastructure wrappers at the environment boundary, add behavior simulation and output tracking, and write narrow, sociable, example-driven, state-based tests without mocks or spies."
 ---
 
-# Nullables Testing Style
+# Nullable Architecture
 
 Use this skill when refactoring code or writing tests in the Nullables style.
 

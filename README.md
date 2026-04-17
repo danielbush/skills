@@ -3,7 +3,7 @@
 Primarily focuses on coding skills and prmopt/context engineering ideas.
 A place to incubate and play with skills or related things to do with context.  Very much in alpha.
 
-## Codiing skills
+## Coding skills
 
 ### Design philosophy
 
@@ -24,12 +24,12 @@ These ideas are heavily inspired by others' work — in particular James Shore's
 
 The design philosophy above works better when human and agent share a named language for it. We're exploring the idea of deliberately engineering vocabulary (`docs/vocab/`) — UPPER_SNAKE_CASE terms like INFRASTRUCTURE_WRAPPER, EMBEDDED_STUB, DEEP_MODULE — so both sides can communicate at high compression without losing precision. Paired with a bottom-up architecture narrative (`docs/architecture.md`) where each section depends only on what came before, these become "world-building" artifacts: ambient project knowledge that lets an agent orient itself without being told everything from scratch each session. This isn't a skill yet — it's a direction. See `work/discussion/shared-understanding-skill.md` and `docs/themes.md` for the longer conversation.
 
-### Nullables testing style
+### Nullable architecture
 
 Testing style inspired by James Shore's [nullable pattern](https://www.jamesshore.com/v2/projects/nullables/testing-without-mocks). Covers infrastructure wrappers, embedded stubs, configurable responses, output tracking, behavior simulation, and sociable state-based tests without mocks. Also covers the embedded infrastructure anti-pattern and why injection is preferred over mocking frameworks.
 
 ```sh
-bunx skills add danielbush/skills --agent claude-code --skill nullables-testing-style
+bunx skills add danielbush/skills --agent claude-code --skill nullable-architecture
 ```
 
 ### Logic sandwich
