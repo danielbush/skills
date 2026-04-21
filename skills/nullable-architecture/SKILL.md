@@ -582,7 +582,16 @@ expect(writes.data).toEqual([{ key: "draft", value: "hello" }]);
 
 Prefer testing at the highest level the nullable graph allows. Because we inject infrastructure and write sociable tests through real code, we can test happy paths, sad paths, and edge cases deterministically and instantly at the top level without mocks or real I/O.
 
-Avoid redundant tests on intermediate code. Testing intermediate layers (1) locks in design choices that should be free to change and (2) often duplicates what a higher-level test already covers. Only add intermediate tests when they cover something the top-level test genuinely cannot reach and the test is easier to write and read at that level.
+Avoid tests that exercise interactions between system components to produce a behaviour. Such tests lock in implementation details: refactor the interaction and you have to rewrite the test, even though the outward behaviour is unchanged. Where possible, test the component that performs the interaction instead.
+
+The criterion: did the test have to perform several actions on several subcomponents to achieve a single outward behaviour? If yes, the test is probably encoding assumptions about system internals.
+
+This pushes tests toward a barbell:
+
+- **High-level and highly sociable** — exercise the system at its top edge. Nullable architecture and dependency injection make this practical: real code runs end-to-end, infrastructure is nulled, behaviour is deterministic.
+- **Low-level and narrow** — test a function or class with a single responsibility directly.
+
+Testing every behaviour at the highest level satisfies this automatically and minimises test rewrites during refactors. Add a lower-level test only when it covers something the top-level test genuinely cannot reach, or when it is meaningfully easier to write and read at that level.
 
 Choose a few tests that teach the system.
 
