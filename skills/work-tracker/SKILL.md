@@ -7,6 +7,10 @@ description: "Create and manage work items, tickets, and tracking artifacts in a
 
 Create and manage work items in a project's `work/` directory. Also summarises sessions and searches past work. Sits on top of the project's vocabulary and architecture (in `docs/`) — work-tracker handles what you were doing recently and last time, what was on your mind, and what was bothering you. The vocabulary and architecture layer handles what the project is about and how it works.
 
+## Installing the session-bookend behaviour
+
+For the agent to *proactively* resume and wrap up sessions (rather than only responding to "where were we" / "let's wrap up"), projects should paste the block from [`agents-snippet.md`](./agents-snippet.md) into their `AGENTS.md` / `CLAUDE.md`. That block tells the agent to summarise last session unprompted at the start and to remind the human to signal wrap-up so notes can be captured.
+
 ## Bootstrap
 
 If `work/` doesn't exist in the project root, create the full structure before doing anything else:
