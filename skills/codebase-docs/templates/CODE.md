@@ -11,6 +11,14 @@ Serves: the system can be understood without reading every line.
 - An agent or a human can look at the top level of the `src` directory and see the outline of how the system works.
 - Docstrings map classes to the terms in CONCEPTS.md, so a reader can go from the code to the ontology.
 
+## Data over code
+
+Serves: the system can be understood without reading every line.
+
+- Establish and document a clear data model: the inputs into the system, and how they are transformed, stored and emitted.
+- The data model is primary. Code around it is secondary and can always be rewritten or improved.
+- Prefer value objects and meaningful groupings of data over loose primitives.
+
 ## Test state, not interactions (STATE_BASED_TESTING)
 
 Serves: almost every line can be tested quickly, with no I/O.
