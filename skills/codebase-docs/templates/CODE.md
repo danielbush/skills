@@ -9,6 +9,7 @@ Serves: the system can be understood without reading every line.
 - Push details and low-level code down into subdirectories.
 - Surface the higher-level code, the code that glues everything together, towards the top.
 - An agent or a human can look at the top level of the `src` directory and see the outline of how the system works.
+- Docstrings map classes to the terms in CONCEPTS.md, so a reader can go from the code to the ontology.
 
 ## Test state, not interactions (STATE_BASED_TESTING)
 
