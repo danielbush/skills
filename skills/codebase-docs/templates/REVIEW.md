@@ -16,6 +16,7 @@ Checkable rules: how to tell that work was done well. Work must also follow the 
 
 - Simple is good; easy is bad.
 - No workarounds, no compromises.
+- Do not preserve obsolete prototypes, schemas, APIs or tests unless explicitly requested.
 - Step back and rethink if we are going down the wrong path.
 
 ## Before you report work as done
