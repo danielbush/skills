@@ -20,7 +20,9 @@ Each file answers one question. If a sentence answers a different question, it b
 | `CODE.md` | What must the code be, and which practices get it there? | "almost every line is tested fast, with no I/O; wrap the outside world" |
 | `CONCEPTS.md` | What are things called? | the names used in all of the above |
 | `REVIEW.md` | How do we tell that work was done well? | "every path through a state machine is tested" |
-| `MANAGER.md` | How does the managing agent help the human decide? | "recommend one option, tied to an outcome" |
+| `MANAGER.md` *(global + repo)* | How does the managing agent help the human decide? | "recommend one option, tied to an outcome" |
+
+`OUTCOMES.md`, `NFR.md`, `CODE.md`, `CONCEPTS.md` and `REVIEW.md` live strictly in the repo — they are project contracts any clone needs. Only `MANAGER.md` has two layers: personal defaults in `~/.agents/codebase-docs/MANAGER.md` plus an optional, thin `MANAGER.md` in the repo for project-specific rules and overrides.
 
 CODE.md is an extension of NFR.md: each coding practice serves an NFR.
 
@@ -60,7 +62,10 @@ The difference between NFR.md and CODE.md: NFR.md states a requirement ("almost 
 - The style the main (managing) agent adopts so that the human reaches the right outcomes and makes the right decisions: how it explains, what it puts in front of the human to decide, how it frames risk, and how it runs the work around those decisions.
 - The manager applies REVIEW.md when working with the human, not only to finished work: it questions the human's ideas and requests with the same parsimony and scepticism.
 - The manager delegates the work, small edits included, to the cheapest agent that fits, so its own context stays free for the human's decisions.
-- See [templates/MANAGER.md](templates/MANAGER.md) for the defaults learned so far.
+- Unlike the other five files (which are strictly repo-only), `MANAGER.md` has two layers:
+  - **Global personal defaults (`~/.agents/codebase-docs/MANAGER.md`):** a plain markdown file (not a skill) holding the human's cross-project managing-agent style (helping the human decide, explaining, general delegation). Seed it once per user from [templates/MANAGER.md](templates/MANAGER.md) if missing; never overwrite it silently once present. Worker and reviewer agents do not need it.
+  - **Repo `MANAGER.md` (optional, thin):** holds only project-specific workflow rules (branch or worktree isolation, tooling quirks, team-shared manager rules) and explicit overrides of `~/.agents/codebase-docs/MANAGER.md`. Repo rules take precedence. Omit it if the repo has nothing to add or override.
+- **Shrinking an existing repo's `MANAGER.md`:** bootstrap `~/.agents/codebase-docs/MANAGER.md` from [templates/MANAGER.md](templates/MANAGER.md) if missing, compare the repo file against it, promote general personal rules to the global file with the human's agreement, remove duplicates from the repo `MANAGER.md`, and delete it if nothing remains.
 
 ### REVIEW.md
 
@@ -89,13 +94,14 @@ These files are worth having only while they help the human and the agents stay 
 - **Planning:** read OUTCOMES.md, NFR.md and CONCEPTS.md. Say which outcome the work serves. If a plan conflicts with an outcome or an NFR, say so before going on.
 - **Briefing a worker or reviewer:** name CODE.md and REVIEW.md, the outcome served, and the CONCEPTS.md files that matter. Ask the worker to list what it did not test.
 - **Done:** a worker checks against REVIEW.md and CODE.md, and a second reviewer (another agent or model) checks against both before the work is called ready.
-- **New rule or decision:** put it in the one file whose kind it is. Do not copy it into another file; link instead.
+- **New rule or decision:** put it in the one file whose kind it is. Do not copy it into another file; link instead. For a managing-agent rule, put personal cross-project defaults in `~/.agents/codebase-docs/MANAGER.md` and project-specific rules or overrides in the repo's `MANAGER.md`.
 
 ## Applying the scheme to an existing project
 
 Do it in small steps that the human reviews one at a time:
 
-1. Inventory the project's current guiding files (AGENTS.md or CLAUDE.md, README, CODE.md, REVIEW.md, CONCEPTS.md, PRD, backlog) and map each section to one of the six files. Show the map to the human before moving anything.
+1. Inventory the project's current guiding files (AGENTS.md or CLAUDE.md, README, CODE.md, REVIEW.md, CONCEPTS.md, MANAGER.md, PRD, backlog) and map each section to one of the six files. Show the map to the human before moving anything.
 2. Move content one file at a time, one commit per file. Move, do not duplicate. Leave a link where the content used to be only if readers would otherwise look for it there.
-3. Last, trim AGENTS.md to pointers and operational details, and add the "Project docs" section from [templates/AGENTS-pointer.md](templates/AGENTS-pointer.md). AGENTS.md is loaded in every session, so this section is what makes later sessions use this skill when a rule is added or moved.
-4. Note anything that does not fit any file; the human decides where it goes or whether it goes.
+3. For `MANAGER.md`: bootstrap `~/.agents/codebase-docs/MANAGER.md` from [templates/MANAGER.md](templates/MANAGER.md) if missing (never overwrite an existing one). Compare any repo managing-agent rules against it: with the human's agreement, promote general personal rules to the global file, keep only project-specific rules and overrides in the repo's `MANAGER.md`, and delete the repo file if nothing remains.
+4. Last, trim AGENTS.md to pointers and operational details, and add the "Project docs" section from [templates/AGENTS-pointer.md](templates/AGENTS-pointer.md). AGENTS.md is loaded in every session, so this section is what makes later sessions use this skill when a rule is added or moved.
+5. Note anything that does not fit any file; the human decides where it goes or whether it goes.
