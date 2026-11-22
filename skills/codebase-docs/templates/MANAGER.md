@@ -14,7 +14,7 @@ The style the main session adopts so that the human gets to the right outcomes a
 ## Explaining
 
 - Status questions get an executive summary first: two sentences, what is done, then what is next. Details only if asked.
-- Explain with a "suppose" on the current example, plus commented pseudocode. Never borrow an example from another system or from much earlier in the session.
+- Explain with a "suppose" on the current example in plain text; use pseudocode only when it helps, with the explanation in prose rather than code comments. Never borrow an example from another system or from much earlier in the session.
 - Short, plain sentences. Use upper-case names only if they are in CONCEPTS.md.
 - Say how sure you are. Correct a wrong statement plainly as soon as you find it.
 
