@@ -52,7 +52,7 @@ The difference between NFR.md and CODE.md: NFR.md states a requirement ("almost 
 
 - ONTOLOGICAL_THINKING: the human builds an ontology of the system, so that both sides can think and program at the level of natural language. CONCEPTS.md is that ontology.
 - Each term is UPPER_SNAKE_CASE, with a short definition, where it lives in the code, and how it relates to other terms. It can also hold the system's rules (for example "data flows one way").
-- It is the human's file. Terms come from the human, or go by the human: an agent never adds, renames or redefines a term on its own. It may propose one, with the definition, and wait for agreement. Agents leave the human's COMMENTs alone.
+- It is the human's file — human-approved, ideally human-authored — the higher-level interface where human and agent meet when discussing the code, so it stays something the human can hold in their head. An agent never fills it up, adds, renames or redefines a term on its own; it may propose one, with the definition, and wait for agreement, and leaves the human's COMMENTs alone.
 - Until the human agrees to a term, an agent writes the thing with its ordinary type or file name, not in UPPER_SNAKE_CASE.
 - Agents use only these upper-case names in their output, code comments, and technical docs, so both sides stay in the same frame. Use agreed `UPPER_SNAKE_CASE` terms bare — do not repeat `See CONCEPTS.md` beside each term. A name that is not in CONCEPTS.md is written as an ordinary type or file name.
 - Larger projects have one CONCEPTS.md per package plus a root inventory.
