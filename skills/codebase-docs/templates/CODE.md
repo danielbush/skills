@@ -42,8 +42,9 @@ Serves: almost every line can be tested quickly, with no I/O.
 
 ## Graphical and declarative programming
 
-Serves: the system admits graphical and declarative representations.
+Serves: user comprehension of the system without having to read every line of code
 
 - Structure code in ways that can be visualised, so a human can still inspect the system and know what they are shipping.
-- Use state machines for behaviour and signal graphs for derived data, to handle complex frontend work and, where it helps, backend work.
+- Use state machines for behaviour
+- Use signal graphs for derived data, to handle complex frontend work and, where it helps, backend work.
 - Keep both declarative: state machines as data, signals as a graph of sources, computed signals and effects.
