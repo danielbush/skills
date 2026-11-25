@@ -27,7 +27,7 @@ Serves: almost every line can be tested quickly, with no I/O.
 - So a spy or a programmed mock is not a good test tool: it tests interactions.
 - When you inject nulled infrastructure, do not program it like a mock or a double. Configure what it returns or holds, then assert on the state that the code under test produces.
 - Prefer state-based testing to DI mocks or stubs. Asserting on a mock or a stub asserts internal behaviour.
-- Only when there is no result to check, because the outcome is a side effect, have the nulled infrastructure emit events and track them (output tracking), and assert on the tracked output.
+- Only when there is no result to check, because the outcome is a side effect, have the production wrapper emit events and track them (output tracking) for both real and nulled instances, and assert on the tracked output.
 - Monkey-patching and module mocking are strictly forbidden. They are doubly wrong: they test interactions, not outcomes, and they reach into the code by hand.
 
 ## Highly testable systems (NULLABLE)
